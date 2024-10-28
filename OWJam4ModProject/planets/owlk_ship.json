@@ -1,0 +1,23 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
+    "name": "TIMBER_HEARTH",
+    "Props": {
+        "details": [
+            {
+                "assetBundle": "assets/bundle",
+                "path": "Assets/_Bundle/Prefabs/OwlkShip.prefab",
+                "position": {
+                    "x": -4.650535,
+                    "y": -7.851096,
+                    "z": 188.701
+                },
+                "rotation": {
+                    "x": 55.24375,
+                    "y": 93.91936,
+                    "z": 95.78945
+                },
+                "scale": 2
+            }
+        ]
+    }
+}
