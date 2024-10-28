@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/manifest_schema.json",
+  "filename": "OWJam4ModProject.dll",
+  "author": "2walker2",
+  "name": "OWJam4ModProject",
+  "uniqueName": "2walker2.OWJam4ModProject",
+  "version": "0.1.0",
+  "owmlVersion": "2.9.8",
+  "dependencies": ["xen.NewHorizons"]
+}
