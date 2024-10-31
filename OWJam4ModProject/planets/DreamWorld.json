@@ -1,0 +1,46 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
+    "name": "DREAMWORLD",
+    "Props": {
+        "details": [
+            {
+                "assetBundle": "assets/bundle",
+                "path": "Assets/_Bundle/Prefabs/ShuttleBridge.prefab",
+                "position": {
+                    "x": -7.44574,
+                    "y": 1.797485,
+                    "z": -747.0579
+                },
+                "rotation": {
+                    "y": 291.2297
+                }
+            },
+            {
+                "assetBundle": "assets/bundle",
+                "path": "Assets/_Bundle/Prefabs/TotemPlatform.prefab",
+                "position": {
+                    "x": 16.95855,
+                    "y": 1.619054,
+                    "z": -720.1596
+                },
+                "rotation": {
+                    "y": 348
+                }
+            }
+        ],
+        "projectionTotems": [
+            {
+                "parentPath": "Sector_DreamWorld/TotemPlatform/Root/TotemSocket",
+                "isRelativeToParent": true,
+                "pathsToProjectedObjects": [
+                    "Sector_DreamWorld/ShuttleBridge"
+                ],
+                "pathsToDreamCandles": [
+                    "Sector_DreamWorld/ShuttleBridge"
+                ],
+                "startLit": false,
+                "toggleProjectedObjectsActive": true
+            }
+        ]
+    }
+}
