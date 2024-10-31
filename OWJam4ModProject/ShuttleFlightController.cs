@@ -26,6 +26,10 @@ namespace OWJam4ModProject
             lightSensor.OnDetectLight += StartFlight;
 
             landingTarget = SearchUtilities.Find(landingTargetName).transform;
+            // terrible. please do this in unity
+            var b = landingTarget.gameObject.AddComponent<OWRigidbody>();
+            b.MakeKinematic();
+            b.EnableKinematicSimulation();
         }
 
         void OnDestroy()
@@ -47,9 +51,14 @@ namespace OWJam4ModProject
             Vector3 velocity = towardsPlanet * flightSpeed;
             body.SetVelocity(velocity);
 
-            // Start rotating towards planet
-            Vector3 rotateAxis = Vector3.Cross(body.transform.up, towardsPlanet);
-            body.AddAngularAcceleration(rotateAxis.normalized * flightAlignmentSpeed);
+            // start aligning with body
+            // should probably put this on the prefab lol
+            var align = body.gameObject.AddComponent<AlignWithTargetBody>();
+            align.SetLocalAlignmentAxis(Vector3.up);
+            align.SetUsePhysicsToRotate(true);
+            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
+            align._interpolationMode = AlignWithDirection.InterpolationMode.Linear; // change the mode to make it nicer. idk what ship uses for landing cam
+            align._interpolationRate = 10;
 
             yield return null;
         }
