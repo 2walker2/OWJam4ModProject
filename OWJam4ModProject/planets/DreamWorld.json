@@ -26,6 +26,12 @@
                 "rotation": {
                     "y": 348
                 }
+            },
+            {
+                "assetBundle": "assets/bundle",
+                "path": "Assets/_Bundle/Prefabs/PlanetSurface.prefab",
+                "parentPath": "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet",
+                "isRelativeToParent": true
             }
         ],
         "projectionTotems": [

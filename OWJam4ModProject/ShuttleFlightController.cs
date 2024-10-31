@@ -8,8 +8,12 @@ namespace OWJam4ModProject
     {
         [Tooltip("The name of the transform to target")]
         [SerializeField] string landingTargetName;
+        [Tooltip("The radius away from it's landing target at which the ship orbits")]
+        [SerializeField] float orbitRadius;
         [Tooltip("How fast the shuttle moves")]
         [SerializeField] float flightSpeed;
+        [Tooltip("How fast the shuttle rotates to face towards the planet as it flies there")]
+        [SerializeField] float flightAlignmentSpeed;
         [Tooltip("The light sensor that activates flight")]
         [SerializeField] SingleLightSensor lightSensor;
         [Tooltip("The shuttle's OWRigidbody")]
@@ -33,10 +37,21 @@ namespace OWJam4ModProject
         {
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", OWML.Common.MessageType.Success);
 
-            Vector3 velocity = landingTarget.position - body.transform.position;
-            velocity = velocity.normalized * flightSpeed;
+            StartCoroutine(FlyToPlanet());
+        }
 
+        IEnumerator FlyToPlanet()
+        {
+            // Start moving towards planet
+            Vector3 towardsPlanet = (landingTarget.position - body.transform.position).normalized;
+            Vector3 velocity = towardsPlanet * flightSpeed;
             body.SetVelocity(velocity);
+
+            // Start rotating towards planet
+            Vector3 rotateAxis = Vector3.Cross(body.transform.up, towardsPlanet);
+            body.AddAngularAcceleration(rotateAxis.normalized * flightAlignmentSpeed);
+
+            yield return null;
         }
     }
 }
