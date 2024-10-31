@@ -21,10 +21,10 @@ namespace OWJam4ModProject
             doorCloseSensor.OnDetectLight += LightSensorActivated;
         }
 
-        void OnEnable()
+        void Update()
         {
-            // Make sure door starts open
-            Invoke(nameof(OpenDoors), 0.1f);
+            // Make sure the projection totem doesn't mess with the doors (yes I know this is hacky)
+            doorCollider.enabled = doorsClosed;
         }
 
         void OnDestroy()
@@ -46,15 +46,6 @@ namespace OWJam4ModProject
                 g.SetActive(true);
             }
             doorCollider.enabled = true;
-        }
-
-        void OpenDoors()
-        {
-            foreach (GameObject g in doorGameObjects)
-            {
-                g.SetActive(false);
-            }
-            doorCollider.enabled = false;
         }
     }
 }
