@@ -12,6 +12,15 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>none</DebugType>
   </PropertyGroup>
+    <ItemGroup>
+	    <PackageReference Include="OWML" Version="2.9.8" />
+	    <PackageReference Include="OuterWildsGameLibs" Version="1.1.14.768" />
+	    <Reference Include="NewHorizons">
+		    <HintPath Condition="Exists('$(OuterWildsModDirectory)xen.NewHorizons\NewHorizons.dll')">$(OuterWildsModDirectory)xen.NewHorizons\NewHorizons.dll</HintPath>
+		    <HintPath Condition="Exists('$(OuterWildsModDirectory)xen.NewHorizons.Debug\NewHorizons.dll')">$(OuterWildsModDirectory)xen.NewHorizons.Debug\NewHorizons.dll</HintPath>
+		    <Private>False</Private>
+	    </Reference>
+    </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OWML" Version="2.14.0" />
     <PackageReference Include="OuterWildsGameLibs" Version="1.1.15.1018" />
@@ -25,6 +34,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSProjTemplate.csproj.user" />
     <Content Include="OWJam4ModProject.csproj.user" />
   </ItemGroup>
   <ItemGroup>

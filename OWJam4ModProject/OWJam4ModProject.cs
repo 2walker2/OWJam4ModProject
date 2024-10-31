@@ -5,6 +5,9 @@ namespace OWJam4ModProject
 {
     public class OWJam4ModProject : ModBehaviour
     {
+
+        public static ModBehaviour instance;
+
         private void Awake()
         {
             // You won't be able to access OWML's mod helper in Awake.
@@ -27,6 +30,15 @@ namespace OWJam4ModProject
                 if (loadScene != OWScene.SolarSystem) return;
                 ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
             };
+
+            // Initialize singleton
+            instance = this;
+        }
+
+        void OnDestroy()
+        {
+            if (instance == this)
+                instance = null;
         }
     }
 
