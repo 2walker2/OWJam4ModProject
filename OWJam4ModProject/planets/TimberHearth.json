@@ -1,0 +1,33 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
+    "name": "TIMBER_HEARTH",
+    "Props": {
+        "slideShows": [
+            {
+                "position": {
+                    "x": 15.49138,
+                    "y": -48.38699,
+                    "z": 183.9828
+                },
+                "slides": [
+                    { "imagePath": "assets/slides/frame_1.jpg" },
+                    { "imagePath": "assets/slides/frame_2.jpg" },
+                    { "imagePath": "assets/slides/frame_3.jpg" },
+                    { "imagePath": "assets/slides/frame_4.jpg" },
+                    { "imagePath": "assets/slides/frame_5.jpg" },
+                    { "imagePath": "assets/slides/frame_6.jpg" },
+                    { "imagePath": "assets/slides/frame_7.jpg" },
+                    { "imagePath": "assets/slides/frame_8.jpg" },
+                    { "imagePath": "assets/slides/frame_9.jpg" },
+                    { "imagePath": "assets/slides/frame_10.jpg" },
+                    { "imagePath": "assets/slides/frame_11.jpg" },
+                    { "imagePath": "assets/slides/frame_12.jpg" },
+                    { "imagePath": "assets/slides/frame_13.jpg" },
+                    { "imagePath": "assets/slides/frame_14.jpg" },
+                    { "imagePath": "assets/slides/frame_15.jpg" },
+                    { "imagePath": "assets/slides/frame_16.jpg" }
+                ]
+            }
+        ]
+    }
+}

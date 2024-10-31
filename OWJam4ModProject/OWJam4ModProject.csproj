@@ -41,6 +41,9 @@
     <None Include="planets\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+	<None Include="assets\**\*.*">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
     <None Include="systems\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -50,6 +53,9 @@
     <None Include="addon-manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(UnityDLLFolder)')">
 	<Exec Command="copy &quot;$(OutputPath)OWJam4ModProject.dll&quot; &quot;$(UnityDLLFolder)OWJam4ModProject.dll&quot;&#xD;&#xA;copy &quot;$(OutputPath)OWJam4ModProject.pdb&quot; &quot;$(UnityDLLFolder)OWJam4ModProject.pdb&quot;" />
