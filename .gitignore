@@ -8,7 +8,7 @@ configBackups/
 # User-specific files
 *.rsuser
 *.suo
-# *.user
+*.user
 *.userosscache
 *.sln.docstates
 
@@ -399,4 +399,3 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .idea
-OWJam4ModProject/OWJam4ModProject.csproj.user
