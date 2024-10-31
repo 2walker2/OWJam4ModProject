@@ -1,0 +1,9 @@
+﻿<Project>
+	<PropertyGroup>
+		<OutputPath>$(AppData)\OuterWildsModManager\OWML\Mods\2walker2.OWJam4ModProject</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Label="UserMacros">
+		<UnityDLLFolder>C:\Users\dwalk\Outer Wilds Modding\OWJam4Root\OWJam4UnityProject\Assets\_OWModJam4Project\</UnityDLLFolder>
+		<OuterWildsModDirectory>C:\Users\dwalk\AppData\Roaming\OuterWildsModManager\OWML\Mods\</OuterWildsModDirectory>
+	</PropertyGroup>
+</Project>
