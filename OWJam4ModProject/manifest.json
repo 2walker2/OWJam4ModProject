@@ -5,6 +5,6 @@
     "name": "OWJam4ModProject",
     "uniqueName": "2walker2.OWJam4ModProject",
     "version": "0.1.0",
-    "owmlVersion": "2.9.8",
+    "owmlVersion": "2.14.0",
     "dependencies": [ "xen.NewHorizons" ]
 }
