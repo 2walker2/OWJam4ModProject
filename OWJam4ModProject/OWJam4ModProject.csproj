@@ -41,7 +41,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists('$(UnityDLLFolder)')">
 	<Exec Command="copy &quot;$(OutputPath)OWJam4ModProject.dll&quot; &quot;$(UnityDLLFolder)OWJam4ModProject.dll&quot;&#xD;&#xA;copy &quot;$(OutputPath)OWJam4ModProject.pdb&quot; &quot;$(UnityDLLFolder)OWJam4ModProject.pdb&quot;" />
   </Target>
 </Project>
