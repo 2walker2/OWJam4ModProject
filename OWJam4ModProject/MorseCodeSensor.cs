@@ -4,7 +4,9 @@ using UnityEngine;
 
 namespace OWJam4ModProject;
 
-// implementation of beta dlc mechanic
+/// <summary>
+/// implementation of beta dlc mechanic
+/// </summary>
 public class MorseCodeSensor : MonoBehaviour
 {
     public const float MAX_SHORT_INTERVAL = 0.7f;
@@ -20,14 +22,14 @@ public class MorseCodeSensor : MonoBehaviour
 
     [Space]
     [SerializeField]
+    [Tooltip("true for long, false for short")]
     private bool[] _code;
-
-    [Space]
-    [SerializeField]
-    private OWAudioSource _oneShotAudio;
 
     private List<bool> CodeInput = new();
 
+    /// <summary>
+    /// other things should listen to this
+    /// </summary>
     public event Action OnEnterCode;
 
     public static Action ClearCodeAction;
