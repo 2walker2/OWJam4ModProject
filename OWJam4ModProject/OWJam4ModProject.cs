@@ -40,6 +40,7 @@ namespace OWJam4ModProject
             // Initialize singleton
             instance = this;
 
+            return;
             // nh startlit seems to just not work, so we have to do this ourselves
             GlobalMessenger.AddListener("EnterDreamWorld", () =>
             {

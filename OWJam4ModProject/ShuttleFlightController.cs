@@ -47,8 +47,8 @@ namespace OWJam4ModProject
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", OWML.Common.MessageType.Success);
 
             // Don't take off if the takeoff puzzle isn't solved
-            if (!takeoffController.CanTakeOff())
-                return;
+            // if (!takeoffController.CanTakeOff())
+                // return;
 
             lightSensor.OnDetectLight -= StartFlight;
 
@@ -58,7 +58,7 @@ namespace OWJam4ModProject
         IEnumerator FlyToPlanet()
         {
             // Start moving towards planet
-            Vector3 towardsPlanet = (landingTarget.position - body.transform.position).normalized;
+            Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * flightSpeed;
             body.SetVelocity(velocity);
 
@@ -67,20 +67,22 @@ namespace OWJam4ModProject
             align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
             align.enabled = true;
 
-            // wait until landed
-            while (Vector3.Distance(landingTarget.position, body.transform.position) > orbitRadius)
+            // wait until in planet
+            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > 450/*cloud radius*/)
             {
                 yield return null;
             }
 
-            body.SetVelocity(Vector3.zero); // do smooth stop later
-            Locator.GetPlayerBody().AddVelocityChange(-velocity);
+            // Locator.GetPlayerBody().AddVelocityChange(-body.GetVelocity());
+            // body.SetVelocity(Vector3.zero); // do smooth stop later
 
             yield return DoFlightControlsLoop();
         }
 
         private IEnumerator DoFlightControlsLoop()
         {
+            OWJam4ModProject.instance.ModHelper.Console.WriteLine("weve stopped. its time to fly");
+
             while (true)
             {
                 var direction = Vector3.zero;
@@ -88,11 +90,18 @@ namespace OWJam4ModProject
                 if (BackSensor.IsIlluminated()) direction += Vector3.back;
                 if (LeftSensor.IsIlluminated()) direction += Vector3.left;
                 if (RightSensor.IsIlluminated()) direction += Vector3.right;
-                direction = transform.TransformDirection(direction.normalized * 10/*bleh*/);
+                direction *= 10;
 
-                body.SetVelocity(direction);
+                // stay in the orbit radius
+                {
+                    var diff = Vector3.Distance(landingTarget.position, body.transform.position) - orbitRadius;
+                    direction += Vector3.up * diff / 10f;
+                }
+
+                direction = transform.TransformDirection(direction);
+
+                body.AddAcceleration(direction);
                 // TODO: make it stay in the orbit radius
-                // TODO: acceleration and DRAG
 
                 yield return null;
             }
