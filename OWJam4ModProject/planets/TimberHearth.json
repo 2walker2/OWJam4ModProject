@@ -2,12 +2,60 @@
     "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
     "name": "TIMBER_HEARTH",
     "Props": {
+        "details": [
+            {
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_Observatory/Interactables_Observatory/VisibleFrom_Village/QuantumShard_Exhibit/Tree_TH_Stump",
+                "scale": 0.35,
+                "position": {
+                    "x": -63.09304,
+                    "y": 9.228474,
+                    "z": 215.993
+                },
+                "rotation": {
+                    "x": 61.47802,
+                    "y": 69.18173,
+                    "z": 84.86225
+                }
+            },
+            {
+                "path": "TimberHearth_Body/Sector_TH/Sector_QuantumGroveEntrance/Lighting_QuantumGroveEntrance/Props_HEA_MuseumPlaque",
+                "removeComponents": true,
+                "position": {
+                    "x": -62.83319,
+                    "y": 7.370567,
+                    "z": 216.1477
+                },
+                "rotation": {
+                    "x": 81.39438,
+                    "y": 60.93384,
+                    "z": 77.69049
+                },
+                "removeChildren": [
+                    "InteractVolume"
+                ]
+            }
+        ],
+        "dialogue": [
+            {
+                "position": {
+                    "x": -63.20948,
+                    "y": 7.458096,
+                    "z": 217.3516
+                },
+                "xmlFile": "text/museum_plaque.xml"
+            }
+        ],
         "slideShows": [
             {
                 "position": {
-                    "x": 15.49138,
-                    "y": -48.38699,
-                    "z": 183.9828
+                    "x": -63.3894,
+                    "y": 9.225949,
+                    "z": 217.0663
+                },
+                "rotation": {
+                    "x": 82.21735,
+                    "y": 55.4499,
+                    "z": 71.59293
                 },
                 "slides": [
                     { "imagePath": "assets/slides/frame_1.jpg" },
