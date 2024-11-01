@@ -59,7 +59,24 @@ namespace OWJam4ModProject
             align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
             align.enabled = true;
 
-            yield return null;
+            // wait until landed
+            while (Vector3.Distance(landingTarget.position, body.transform.position) > orbitRadius)
+            {
+                yield return null;
+            }
+
+            body.SetVelocity(Vector3.zero); // do smooth stop later
+            Locator.GetPlayerBody().AddVelocityChange(-velocity);
+
+            yield return DoFlightControlsLoop();
+        }
+
+        private IEnumerator DoFlightControlsLoop()
+        {
+            while (true)
+            {
+                yield return null;
+            }
         }
     }
 }

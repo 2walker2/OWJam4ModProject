@@ -29,7 +29,7 @@
             },
             {
                 "assetBundle": "assets/bundle",
-                "path": "Assets/_Bundle/Prefabs/PlanetSurface.prefab",
+                "path": "Assets/_Bundle/Prefabs/PlanetSurface_Body.prefab",
                 "parentPath": "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet",
                 "isRelativeToParent": true
             }
