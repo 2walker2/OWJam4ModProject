@@ -47,7 +47,7 @@ namespace OWJam4ModProject
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", OWML.Common.MessageType.Success);
 
             // Don't take off if the takeoff puzzle isn't solved
-            if (false && !takeoffController.CanTakeOff())
+            if (!takeoffController.CanTakeOff())
                 return;
 
             lightSensor.OnDetectLight -= StartFlight;
