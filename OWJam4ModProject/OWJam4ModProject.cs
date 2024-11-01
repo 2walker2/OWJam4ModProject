@@ -1,5 +1,9 @@
-﻿using OWML.Common;
+﻿using HarmonyLib;
+using NewHorizons.Utility;
+using NewHorizons.Utility.OWML;
+using OWML.Common;
 using OWML.ModHelper;
+using System.Reflection;
 
 namespace OWJam4ModProject
 {
@@ -13,6 +17,8 @@ namespace OWJam4ModProject
             // You won't be able to access OWML's mod helper in Awake.
             // So you probably don't want to do anything here.
             // Use Start() instead.
+
+            Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
         }
 
         private void Start()
@@ -33,6 +39,13 @@ namespace OWJam4ModProject
 
             // Initialize singleton
             instance = this;
+
+            // nh startlit seems to just not work, so we have to do this ourselves
+            GlobalMessenger.AddListener("EnterDreamWorld", () =>
+            {
+                SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>().SetLit(false);
+                ModHelper.Console.WriteLine("TURN OFF THE THING PLEASE");
+            });
         }
 
         void OnDestroy()
