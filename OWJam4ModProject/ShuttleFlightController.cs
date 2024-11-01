@@ -9,6 +9,8 @@ namespace OWJam4ModProject
     /// </summary>
     internal class ShuttleFlightController : MonoBehaviour
     {
+        [Tooltip("The shuttle's takeoff controller")]
+        [SerializeField] ShuttleTakeoffController takeoffController;
         [Tooltip("The name of the transform to target")]
         [SerializeField] string landingTargetName;
         [Tooltip("The radius away from it's landing target at which the ship orbits")]
@@ -37,6 +39,10 @@ namespace OWJam4ModProject
         void StartFlight()
         {
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", OWML.Common.MessageType.Success);
+
+            // Don't take off if the takeoff puzzle isn't solved
+            /*if (!takeoffController.CanTakeOff())
+                return;*/
 
             StartCoroutine(FlyToPlanet());
         }

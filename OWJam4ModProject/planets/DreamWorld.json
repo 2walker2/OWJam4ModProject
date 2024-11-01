@@ -44,7 +44,7 @@
                 "pathsToDreamCandles": [
                     "Sector_DreamWorld/ShuttleBridge"
                 ],
-                "startLit": false, //Revert in final build
+                "startLit": true, //Revert in final build
                 "toggleProjectedObjectsActive": true
             }
         ]
