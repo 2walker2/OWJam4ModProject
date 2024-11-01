@@ -37,12 +37,14 @@ public class MorseCodeSensor : MonoBehaviour
     private void Awake()
     {
         ClearCodeAction += ClearCode;
-        _lightSensor.OnDetectLight += new OWEvent.OWCallback(OnDetectLight);
-        _lightSensor.OnDetectDarkness += new OWEvent.OWCallback(OnDetectDarkness);
+        _lightSensor.OnDetectLight += OnDetectLight;
+        _lightSensor.OnDetectDarkness += OnDetectDarkness;
     }
     void OnDestroy()
     {
         ClearCodeAction -= ClearCode;
+        _lightSensor.OnDetectLight -= OnDetectLight;
+        _lightSensor.OnDetectDarkness -= OnDetectDarkness;
     }
     void ClearCode()
     {
