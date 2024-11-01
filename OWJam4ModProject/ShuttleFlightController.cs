@@ -106,5 +106,18 @@ namespace OWJam4ModProject
                 yield return null;
             }
         }
+
+        public void StartLanding(ShuttleLandingPoint landingPoint)
+        {
+            // stop the flight thing
+            StopAllCoroutines();
+            StartCoroutine(DoLandingLoop(landingPoint));
+        }
+
+        private IEnumerator DoLandingLoop(ShuttleLandingPoint landingPoint)
+        {
+            // TODO: schloop down to the platform. make sure to stop when u reach it
+            yield break;
+        }
     }
 }
