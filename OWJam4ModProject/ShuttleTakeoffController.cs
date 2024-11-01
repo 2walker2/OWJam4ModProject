@@ -49,9 +49,14 @@ namespace OWJam4ModProject
                 }
                 else
                 {
-                    furnace.SetLit(false);
+                    Invoke(nameof(TurnOffFurnace), 0.1f);
                 }
             }
+        }
+
+        void TurnOffFurnace()
+        {
+            furnace.SetLit(false);
         }
 
         public bool CanTakeOff()
