@@ -7,6 +7,8 @@ namespace OWJam4ModProject
     {
         [Tooltip("The single light sensor to use to determine when to close the doors")]
         [SerializeField] SingleLightSensor doorCloseSensor;
+        [Tooltip("The grapple totem to disable when the player is inside the ship")]
+        [SerializeField] GameObject grappleTotem;
         [Tooltip("The delay after the light sensor is activated to wait before closing the doors")]
         [SerializeField] float doorCloseDelay;
         [Tooltip("The door gameobjects to enable")]
@@ -46,6 +48,8 @@ namespace OWJam4ModProject
                 g.SetActive(true);
             }
             doorCollider.enabled = true;
+
+            grappleTotem.SetActive(false);
         }
     }
 }
