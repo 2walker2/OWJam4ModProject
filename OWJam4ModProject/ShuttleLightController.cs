@@ -17,6 +17,8 @@ namespace OWJam4ModProject
         {
             lightSensor.OnDetectLight += TurnOnLight;
             lightSensor.OnDetectDarkness += TurnOffLight;
+
+            TurnOffLight();
         }
 
         void OnDestroy()

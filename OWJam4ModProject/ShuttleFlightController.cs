@@ -37,6 +37,8 @@ namespace OWJam4ModProject
             lightSensor.OnDetectLight += StartFlight;
 
             landingTarget = SearchUtilities.Find(landingTargetName).transform;
+
+            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false; // dont apply fluids FOR NOW
         }
 
         void OnDestroy()
@@ -70,15 +72,16 @@ namespace OWJam4ModProject
             align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
             align.enabled = true;
 
-            // wait until in planet
+            // wait until in orbit
             const int CLOUD_RADIUS = 450;
-            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > CLOUD_RADIUS)
+            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > orbitRadius)
             {
                 yield return null;
             }
 
-            // Locator.GetPlayerBody().AddVelocityChange(-body.GetVelocity());
-            // body.SetVelocity(Vector3.zero); // do smooth stop later
+            // instantly stop. its easier
+            Locator.GetPlayerBody().AddVelocityChange(-body.GetVelocity());
+            body.SetVelocity(Vector3.zero);
 
             yield return DoFlightControlsLoop();
         }
@@ -86,6 +89,8 @@ namespace OWJam4ModProject
         private IEnumerator DoFlightControlsLoop()
         {
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("weve stopped. its time to fly");
+
+            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = true; // we need drag now
 
             while (true)
             {
@@ -98,7 +103,7 @@ namespace OWJam4ModProject
 
                 // stay in the orbit radius
                 {
-                    var diff = Vector3.Distance(landingTarget.position, body.transform.position) - orbitRadius;
+                    var diff = Vector3.Distance(landingTarget.position, body.GetPosition()) - orbitRadius;
                     direction += Vector3.up * diff / 10f;
                 }
 
