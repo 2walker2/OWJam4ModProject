@@ -40,10 +40,12 @@ namespace OWJam4ModProject
             // Initialize singleton
             instance = this;
 
-            return;
             // nh startlit seems to just not work, so we have to do this ourselves
             GlobalMessenger.AddListener("EnterDreamWorld", () =>
             {
+                Locator.GetPlayerCamera().postProcessingSettings.ambientOcclusionAvailable = true; // we have ambient light so we want this back
+
+                return;
                 SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>().SetLit(false);
                 ModHelper.Console.WriteLine("TURN OFF THE THING PLEASE");
             });
