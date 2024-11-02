@@ -13,8 +13,6 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
     <ItemGroup>
-	    <PackageReference Include="OWML" Version="2.9.8" />
-	    <PackageReference Include="OuterWildsGameLibs" Version="1.1.14.768" />
 	    <Reference Include="NewHorizons">
 		    <HintPath Condition="Exists('$(OuterWildsModDirectory)xen.NewHorizons\NewHorizons.dll')">$(OuterWildsModDirectory)xen.NewHorizons\NewHorizons.dll</HintPath>
 		    <HintPath Condition="Exists('$(OuterWildsModDirectory)xen.NewHorizons.Debug\NewHorizons.dll')">$(OuterWildsModDirectory)xen.NewHorizons.Debug\NewHorizons.dll</HintPath>
