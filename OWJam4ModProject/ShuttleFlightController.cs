@@ -139,7 +139,7 @@ namespace OWJam4ModProject
             Vector3 velocity = towardsPlanet * LandingSpeed;
             body.SetVelocity(velocity);
 
-            // hack: attach player while spinning because usePhysicsToRotate no workie ga gerkie
+            // hack: have to turn off use physics to rotate, so we attach player temporarily to make it not as awful
             {
                 align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
 
@@ -147,7 +147,7 @@ namespace OWJam4ModProject
                 PlayerAttachPoint.transform.rotation = Locator.GetPlayerTransform().rotation;
                 PlayerAttachPoint.AttachPlayer();
                 var sw = Stopwatch.StartNew();
-                while (sw.ElapsedMilliseconds < 1000)
+                while (sw.ElapsedMilliseconds < 100)
                 {
                     yield return null;
                 }
