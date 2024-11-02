@@ -30,6 +30,9 @@ namespace OWJam4ModProject
         [Space]
         public float LandingSpeed = 10f;
 
+        private const int CLOUD_RADIUS = 450;
+        private const int PLANET_RADIUS = 50;
+
         Transform landingTarget;
 
         void Start()
@@ -73,7 +76,6 @@ namespace OWJam4ModProject
             align.enabled = true;
 
             // wait until in orbit
-            const int CLOUD_RADIUS = 450;
             while (Vector3.Distance(landingTarget.position, body.GetPosition()) > orbitRadius)
             {
                 yield return null;
@@ -99,12 +101,12 @@ namespace OWJam4ModProject
                 if (BackSensor.IsIlluminated()) direction += Vector3.back;
                 if (LeftSensor.IsIlluminated()) direction += Vector3.left;
                 if (RightSensor.IsIlluminated()) direction += Vector3.right;
-                direction *= 10;
+                direction *= 20;
 
                 // stay in the orbit radius
                 {
                     var diff = Vector3.Distance(landingTarget.position, body.GetPosition()) - orbitRadius;
-                    direction += Vector3.up * diff / 10f;
+                    direction += Vector3.up * diff / 10;
                 }
 
                 direction = transform.TransformDirection(direction);
@@ -124,17 +126,23 @@ namespace OWJam4ModProject
 
         private IEnumerator DoLanding(ShuttleLandingPoint landingPoint)
         {
+            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
+
             // flip around
             var align = body.GetComponent<AlignWithTargetBody>();
             align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
             align.SetLocalAlignmentAxis(Vector3.down);
 
+            // move to landing spot
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * LandingSpeed;
             body.SetVelocity(velocity);
 
-            const int PLANET_RADIUS = 50;
-            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > PLANET_RADIUS)
+            // get height to land on
+            var height = Vector3.Distance(landingTarget.position, landingPoint.transform.position);
+            OWJam4ModProject.instance.ModHelper.Console.WriteLine($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, body.GetPosition())}");
+
+            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > height)
             {
                 yield return null;
             }
@@ -142,6 +150,8 @@ namespace OWJam4ModProject
             // "collided" with ground. stop instantly
             Locator.GetPlayerBody().AddVelocityChange(-body.GetVelocity());
             body.SetVelocity(Vector3.zero);
+
+            OWJam4ModProject.instance.ModHelper.Console.WriteLine("landed");
         }
     }
 }

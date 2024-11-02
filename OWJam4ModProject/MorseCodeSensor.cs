@@ -9,7 +9,7 @@ namespace OWJam4ModProject;
 /// </summary>
 public class MorseCodeSensor : MonoBehaviour
 {
-    public const float MAX_SHORT_INTERVAL = 0.7f;
+    public const float MAX_SHORT_INTERVAL = 0.3f;
 
     public const float MAX_LONG_INTERVAL = 3f;
 
@@ -53,7 +53,7 @@ public class MorseCodeSensor : MonoBehaviour
     private void OnDetectLight()
     {
         // HACK HACK HACK HACK
-        FindObjectOfType<ShuttleFlightController>().body.SetVelocity(Vector3.zero);
+        // FindObjectOfType<ShuttleFlightController>().body.SetVelocity(Vector3.zero);
 
         LastLightTime = Time.time;
         float DarkDiff = Time.time - LastDarkTime;
