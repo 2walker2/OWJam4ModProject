@@ -31,7 +31,6 @@ namespace OWJam4ModProject
         public float LandingSpeed = 10f;
 
         Transform landingTarget;
-        private AlignWithTargetBody _align;
 
         void Start()
         {
@@ -66,9 +65,10 @@ namespace OWJam4ModProject
             body.SetVelocity(velocity);
 
             // start aligning with body
-            _align = body.GetComponent<AlignWithTargetBody>();
-            _align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
-            _align.enabled = true;
+            var align = body.GetComponent<AlignWithTargetBody>();
+            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
+            align.SetUsePhysicsToRotate(true);
+            align.enabled = true;
 
             // wait until in planet
             const int CLOUD_RADIUS = 450;
@@ -121,8 +121,8 @@ namespace OWJam4ModProject
         {
             // flip around
             var align = body.GetComponent<AlignWithTargetBody>();
-            align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
             align.SetLocalAlignmentAxis(Vector3.down);
+            align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
 
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * LandingSpeed;
