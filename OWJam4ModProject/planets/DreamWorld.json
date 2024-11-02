@@ -34,6 +34,15 @@
                 "isRelativeToParent": true
             }
         ],
+        "slideShows": [
+            {
+                "parentPath": "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/PlanetSurface_Body/LandingPoint/LandingPad/SlideSocket",
+                "isRelativeToParent": true,
+                "slides": [
+                    { "imagePath": "assets/slides/frame_1.jpg" }
+                ]
+            }
+        ],
         "projectionTotems": [
             {
                 "parentPath": "Sector_DreamWorld/TotemPlatform/Root/TotemSocket",
