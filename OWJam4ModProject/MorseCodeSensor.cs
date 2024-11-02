@@ -52,6 +52,9 @@ public class MorseCodeSensor : MonoBehaviour
     }
     private void OnDetectLight()
     {
+        // HACK HACK HACK HACK
+        FindObjectOfType<ShuttleFlightController>().body.SetVelocity(Vector3.zero);
+
         LastLightTime = Time.time;
         float DarkDiff = Time.time - LastDarkTime;
         //clears code after MAX_LONG_INTERVAL seconds of inaction

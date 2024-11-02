@@ -20,15 +20,18 @@ namespace OWJam4ModProject
         [Tooltip("The light sensor that activates flight")]
         [SerializeField] SingleLightSensor lightSensor;
         [Tooltip("The shuttle's OWRigidbody")]
-        [SerializeField] OWRigidbody body;
+        [SerializeField] internal OWRigidbody body;
 
         [Header("Orbit sensors")]
         public SingleLightSensor ForwardSensor;
         public SingleLightSensor BackSensor;
         public SingleLightSensor LeftSensor;
         public SingleLightSensor RightSensor;
+        [Space]
+        public float LandingSpeed = 10f;
 
         Transform landingTarget;
+        private AlignWithTargetBody _align;
 
         void Start()
         {
@@ -63,12 +66,13 @@ namespace OWJam4ModProject
             body.SetVelocity(velocity);
 
             // start aligning with body
-            var align = body.GetComponent<AlignWithTargetBody>();
-            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
-            align.enabled = true;
+            _align = body.GetComponent<AlignWithTargetBody>();
+            _align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
+            _align.enabled = true;
 
             // wait until in planet
-            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > 450/*cloud radius*/)
+            const int CLOUD_RADIUS = 450;
+            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > CLOUD_RADIUS)
             {
                 yield return null;
             }
@@ -101,7 +105,6 @@ namespace OWJam4ModProject
                 direction = transform.TransformDirection(direction);
 
                 body.AddAcceleration(direction);
-                // TODO: make it stay in the orbit radius
 
                 yield return null;
             }
@@ -111,13 +114,29 @@ namespace OWJam4ModProject
         {
             // stop the flight thing
             StopAllCoroutines();
-            StartCoroutine(DoLandingLoop(landingPoint));
+            StartCoroutine(DoLanding(landingPoint));
         }
 
-        private IEnumerator DoLandingLoop(ShuttleLandingPoint landingPoint)
+        private IEnumerator DoLanding(ShuttleLandingPoint landingPoint)
         {
-            // TODO: schloop down to the platform. make sure to stop when u reach it
-            yield break;
+            // flip around
+            var align = body.GetComponent<AlignWithTargetBody>();
+            align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
+            align.SetLocalAlignmentAxis(Vector3.down);
+
+            Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
+            Vector3 velocity = towardsPlanet * LandingSpeed;
+            body.SetVelocity(velocity);
+
+            const int PLANET_RADIUS = 50;
+            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > PLANET_RADIUS)
+            {
+                yield return null;
+            }
+
+            // "collided" with ground. stop instantly
+            Locator.GetPlayerBody().AddVelocityChange(-body.GetVelocity());
+            body.SetVelocity(Vector3.zero);
         }
     }
 }
