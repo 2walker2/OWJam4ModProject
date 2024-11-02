@@ -1,5 +1,6 @@
 ﻿using NewHorizons.Utility;
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace OWJam4ModProject
@@ -29,6 +30,7 @@ namespace OWJam4ModProject
         public SingleLightSensor RightSensor;
         [Space]
         public float LandingSpeed = 10f;
+        public PlayerAttachPoint PlayerAttachPoint;
 
         private const int CLOUD_RADIUS = 450;
         private const int PLANET_RADIUS = 50;
@@ -130,13 +132,30 @@ namespace OWJam4ModProject
 
             // flip around
             var align = body.GetComponent<AlignWithTargetBody>();
-            align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
             align.SetLocalAlignmentAxis(Vector3.down);
 
             // move to landing spot
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * LandingSpeed;
             body.SetVelocity(velocity);
+
+            // hack: attach player while spinning because usePhysicsToRotate no workie ga gerkie
+            {
+                align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
+
+                PlayerAttachPoint.transform.position = Locator.GetPlayerTransform().position;
+                PlayerAttachPoint.transform.rotation = Locator.GetPlayerTransform().rotation;
+                PlayerAttachPoint.AttachPlayer();
+                var sw = Stopwatch.StartNew();
+                while (sw.ElapsedMilliseconds < 1000)
+                {
+                    yield return null;
+                }
+                sw.Stop();
+                PlayerAttachPoint.DetachPlayer();
+
+                align.SetUsePhysicsToRotate(true);
+            }
 
             // get height to land on
             var height = Vector3.Distance(landingTarget.position, landingPoint.transform.position);
