@@ -66,8 +66,8 @@ namespace OWJam4ModProject
 
             // start aligning with body
             var align = body.GetComponent<AlignWithTargetBody>();
-            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
             align.SetUsePhysicsToRotate(true);
+            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
             align.enabled = true;
 
             // wait until in planet
@@ -121,8 +121,8 @@ namespace OWJam4ModProject
         {
             // flip around
             var align = body.GetComponent<AlignWithTargetBody>();
-            align.SetLocalAlignmentAxis(Vector3.down);
             align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
+            align.SetLocalAlignmentAxis(Vector3.down);
 
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * LandingSpeed;
