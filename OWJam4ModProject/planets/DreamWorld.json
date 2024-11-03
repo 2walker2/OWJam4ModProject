@@ -7,6 +7,7 @@
     "Props": {
         "details": [
             {
+                "ignoreSun": true,
                 "assetBundle": "assets/bundle",
                 "path": "Assets/_Bundle/Prefabs/ShuttleBridge.prefab",
                 "position": {
@@ -19,6 +20,7 @@
                 }
             },
             {
+                "ignoreSun": true,
                 "assetBundle": "assets/bundle",
                 "path": "Assets/_Bundle/Prefabs/TotemPlatform.prefab",
                 "position": {
@@ -31,6 +33,7 @@
                 }
             },
             {
+                "ignoreSun": true,
                 "assetBundle": "assets/bundle",
                 "path": "Assets/_Bundle/Prefabs/PlanetSurface_Body.prefab",
                 "parentPath": "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet",
