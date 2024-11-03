@@ -60,7 +60,11 @@ namespace OWJam4ModProject
 
         void Update()
         {
-            if (Keyboard.current[Key.Home].wasPressedThisFrame) StartFlight();
+            if (Keyboard.current[Key.Home].wasPressedThisFrame)
+            {
+                StopAllCoroutines();
+                StartCoroutine(FlyToPlanet());
+            }
         }
 
         void StartFlight()
