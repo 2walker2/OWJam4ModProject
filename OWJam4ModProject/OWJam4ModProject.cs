@@ -4,6 +4,7 @@ using NewHorizons.Utility.OWML;
 using OWML.Common;
 using OWML.ModHelper;
 using System.Reflection;
+using UnityEngine;
 
 namespace OWJam4ModProject
 {
@@ -11,6 +12,8 @@ namespace OWJam4ModProject
     {
 
         public static ModBehaviour instance;
+
+        private static Vector3? _shuttleStartingPosition;
 
         private void Awake()
         {
@@ -35,6 +38,8 @@ namespace OWJam4ModProject
             {
                 if (loadScene != OWScene.SolarSystem) return;
                 ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
+
+                _shuttleStartingPosition = null; // this needs to get init'd again
             };
 
             // Initialize singleton
@@ -44,6 +49,12 @@ namespace OWJam4ModProject
             GlobalMessenger.AddListener("EnterDreamWorld", () =>
             {
                 Locator.GetPlayerCamera().postProcessingSettings.ambientOcclusionAvailable = true; // we have ambient light so we want this back
+
+                // turn this light way down
+                var dreamworld = Locator.GetDreamWorldController()._dreamBody._transform;
+                dreamworld.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity = .3f;
+
+                FindObjectOfType<ShuttleFlightController>().ResetShuttle();
 
                 return;
                 SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>().SetLit(false);

@@ -59,8 +59,6 @@ namespace OWJam4ModProject
             // if (!takeoffController.CanTakeOff())
                 // return;
 
-            lightSensor.OnDetectLight -= StartFlight;
-
             StartCoroutine(FlyToPlanet());
         }
 
@@ -75,6 +73,7 @@ namespace OWJam4ModProject
             var align = body.GetComponent<AlignWithTargetBody>();
             align.SetUsePhysicsToRotate(true);
             align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
+            align.SetLocalAlignmentAxis(Vector3.up);
             align.enabled = true;
 
             // wait until in orbit
@@ -132,7 +131,10 @@ namespace OWJam4ModProject
 
             // flip around
             var align = body.GetComponent<AlignWithTargetBody>();
+            align.SetUsePhysicsToRotate(true);
+            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
             align.SetLocalAlignmentAxis(Vector3.down);
+            align.enabled = true;
 
             // move to landing spot
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
@@ -171,6 +173,37 @@ namespace OWJam4ModProject
             body.SetVelocity(Vector3.zero);
 
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("landed");
+        }
+
+
+
+
+
+        private Transform joe;
+
+        public void ResetShuttle()
+        {
+            if (!joe)
+            {
+                // first time in dreamworld. just grab current location
+                joe = new GameObject("joe").transform;
+                joe.parent = body.GetOrigParent();
+                joe.position = body.GetPosition();
+                joe.rotation = body.GetRotation();
+            }
+            else
+            {
+                OWJam4ModProject.instance.ModHelper.Console.WriteLine($"resetting shuttle to {joe.position} {joe.rotation}");
+
+                body.SetPosition(joe.position);
+                body.SetRotation(joe.rotation);
+                body.SetVelocity(Vector3.zero);
+                body.SetAngularVelocity(Vector3.zero);
+
+                body.GetComponent<AlignWithTargetBody>().enabled = false;
+                body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
+                body.GetComponentInChildren<ShuttleDoorController>().StartOpenDoors();
+            }
         }
     }
 }

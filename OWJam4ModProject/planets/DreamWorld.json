@@ -1,9 +1,9 @@
 {
     "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
     "name": "DREAMWORLD",
-    "removeChildren": [
-        "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP"
-    ],
+//    "removeChildren": [
+//        "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP"
+//    ],
     "Props": {
         "details": [
             {
