@@ -47,10 +47,11 @@ namespace OWJam4ModProject
 
             landingTarget = SearchUtilities.Find(landingTargetName).transform;
 
-            _shipFluidDetector = (ConstantFluidDetector)body.GetAttachedFluidDetector();
-            _planetFluidVolume = landingTarget.Find("AirVolume").GetComponent<SimpleFluidVolume>();
+            var shipFluidDetector = (ConstantFluidDetector)body.GetAttachedFluidDetector();
+            var planetFluidVolume = landingTarget.Find("AirVolume").GetComponent<SimpleFluidVolume>();
+            shipFluidDetector.SetDetectableFluid(planetFluidVolume);
 
-            _shipFluidDetector.SetDetectableFluid(null); // dont detect fluids for now
+            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false; // dont apply fluids FOR NOW
         }
 
         void OnDestroy()
@@ -122,7 +123,7 @@ namespace OWJam4ModProject
         {
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("weve stopped. its time to fly");
 
-            _shipFluidDetector.SetDetectableFluid(_planetFluidVolume); // we need drag now;
+            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = true; // we need drag now
 
             while (true)
             {
@@ -163,7 +164,7 @@ namespace OWJam4ModProject
 
         private IEnumerator DoLanding(ShuttleLandingPoint landingPoint)
         {
-            _shipFluidDetector.SetDetectableFluid(null);
+            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
 
             // flip around
             StartCoroutine(DoAlign(Vector3.down));
@@ -248,7 +249,7 @@ namespace OWJam4ModProject
                 body.SetAngularVelocity(Vector3.zero);
 
                 body.GetComponent<AlignWithTargetBody>().enabled = false;
-                _shipFluidDetector.SetDetectableFluid(null);
+                body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
                 body.GetComponentInChildren<ShuttleDoorController>().StartOpenDoors();
             }
         }
