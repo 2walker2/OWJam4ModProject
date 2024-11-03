@@ -38,6 +38,18 @@
                 "path": "Assets/_Bundle/Prefabs/PlanetSurface_Body.prefab",
                 "parentPath": "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet",
                 "isRelativeToParent": true
+            },
+            {
+                "assetBundle": "assets/bundle",
+                "path": "Assets/_Bundle/Prefabs/CodeHolder.prefab",
+                "position": {
+                    "x": -3.091,
+                    "y": 8.6821,
+                    "z": -790.8075
+                },
+                "rotation": {
+                    "y": 107.2909
+                }
             }
         ],
         "slideShows": [
@@ -75,7 +87,7 @@
                     "y": 16,
                     "z": 180
                 },
-                "arrivalDistance": 2,
+                "arrivalDistance": 1,
                 "maxDistance": 10000,
                 "maxAngle": 90
             },

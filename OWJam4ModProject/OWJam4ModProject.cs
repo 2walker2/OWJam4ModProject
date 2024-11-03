@@ -52,7 +52,7 @@ namespace OWJam4ModProject
 
                 FindObjectOfType<ShuttleFlightController>().ResetShuttle();
 
-                return;
+                //return;
                 SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>().SetLit(false);
                 ModHelper.Console.WriteLine("TURN OFF THE THING PLEASE");
             });

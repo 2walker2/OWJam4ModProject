@@ -48,5 +48,10 @@ namespace OWJam4ModProject
                 engineHumSource.Play();
             }
         }
+
+        public bool CanTakeOff()
+        {
+            return furnaceLit && codeCorrect;
+        }
     }
 }

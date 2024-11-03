@@ -65,8 +65,8 @@ namespace OWJam4ModProject
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", MessageType.Success);
 
             // Don't take off if the takeoff puzzle isn't solved
-            // if (!takeoffController.CanTakeOff())
-                // return;
+            if (!takeoffController.CanTakeOff())
+                return;
 
             StopAllCoroutines();
             StartCoroutine(FlyToPlanet());
