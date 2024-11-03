@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using NewHorizons;
 using NewHorizons.Utility;
 using NewHorizons.Utility.OWML;
 using OWML.Common;
@@ -12,8 +13,6 @@ namespace OWJam4ModProject
     {
 
         public static ModBehaviour instance;
-
-        private static Vector3? _shuttleStartingPosition;
 
         private void Awake()
         {
@@ -33,19 +32,31 @@ namespace OWJam4ModProject
             var newHorizons = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
             newHorizons.LoadConfigs(this);
 
-            // Example of accessing game code.
-            LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
-            {
-                if (loadScene != OWScene.SolarSystem) return;
-                ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
-
-                _shuttleStartingPosition = null; // this needs to get init'd again
-            };
+            newHorizons.GetStarSystemLoadedEvent().AddListener(OnStarSystemLoaded);
 
             // Initialize singleton
             instance = this;
 
             GlobalMessenger.AddListener("EnterDreamWorld", InitDreamWorld);
+        }
+
+        private void OnStarSystemLoaded(string system)
+        {
+            if (system != "SolarSystem") return;
+            ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
+
+            // make zone1 sector guy huge
+            // can see blue atmo from other zone but idc
+            var zone1shape = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1").GetComponent<CylinderShape>();
+            zone1shape.height = 9999;
+            zone1shape.radius = 9999;
+
+            // add sector to things that need it
+            foreach (var tessSphereSectorToggle in GameObject.Find("DreamWorld_Body").GetComponentsInChildren<TessSphereSectorToggle>())
+            {
+                tessSphereSectorToggle._sector = Locator.GetDreamWorldController()._dreamWorldSector;
+                ModHelper.Console.WriteLine($"set sector for {tessSphereSectorToggle}");
+            }
         }
 
         private void InitDreamWorld()
@@ -56,31 +67,21 @@ namespace OWJam4ModProject
 
             FindObjectOfType<ShuttleFlightController>().ResetShuttle();
 
-            // make zone1 sector guy huge
-            // can see blue atmo from other zone but idc
-            var zone1shape = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1").GetComponent<CylinderShape>();
-            zone1shape.height = 9999;
-            zone1shape.radius = 9999;
-
             // nh startlit seems to just not work, so we have to do this ourselves
             var projector = SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>();
             projector.SetLit(true);
             projector.SetLit(false);
 
-            Delay.FireInNUpdates(MakeTheStupidLightDark, 100);
-        }
+            Delay.FireInNUpdates(() =>
+            {
+                // turn visible planet "ambient light" down
+                var light = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP");
+                light.GetComponent<Light>().intensity = .3f;
+                ModHelper.Console.WriteLine("GO DARK YOU STUPID LIGHT");
 
-        /// <summary>
-        /// turn visible planet "ambient light" down
-        /// </summary>
-        private void MakeTheStupidLightDark()
-        {
-            var dw = Locator.GetDreamWorldController()._dreamBody._transform;
-            var light = dw.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP");
-            light.GetComponent<Light>().intensity = .3f;
-            ModHelper.Console.WriteLine("GO DARK YOU STUPID LIGHT");
-
-            // Locator.GetDreamWorldController()._dreamBody._transform.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity
+                // unity explorer script
+                // Locator.GetDreamWorldController()._dreamBody._transform.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity
+            }, 100);
         }
 
         void OnDestroy()
