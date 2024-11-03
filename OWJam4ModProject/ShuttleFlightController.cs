@@ -3,6 +3,7 @@ using OWML.Common;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace OWJam4ModProject
 {
@@ -37,7 +38,6 @@ namespace OWJam4ModProject
         private const int PLANET_RADIUS = 50;
 
         Transform landingTarget;
-        private bool _landedOnPlanet;
 
         void Start()
         {
@@ -55,6 +55,11 @@ namespace OWJam4ModProject
 
         #region flight
 
+        void Update()
+        {
+            if (Keyboard.current[Key.Home].wasPressedThisFrame) StartFlight();
+        }
+
         void StartFlight()
         {
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", MessageType.Success);
@@ -63,27 +68,37 @@ namespace OWJam4ModProject
             // if (!takeoffController.CanTakeOff())
                 // return;
 
+            StopAllCoroutines();
             StartCoroutine(FlyToPlanet());
         }
 
         IEnumerator FlyToPlanet()
         {
+            var belowOrbit = Vector3.Distance(landingTarget.position, body.GetPosition()) < orbitRadius;
+
             // Start moving towards planet
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
-            if (_landedOnPlanet) towardsPlanet = -towardsPlanet; // go away from planet instead of towards
             Vector3 velocity = towardsPlanet * flightSpeed;
+            if (belowOrbit)
+                velocity = -towardsPlanet * flightSpeed;
             body.SetVelocity(velocity);
 
-            _landedOnPlanet = false;
 
             // start aligning with body
             yield return DoAlign(Vector3.up);
 
             // wait until in orbit
-            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > orbitRadius)
+            if (!belowOrbit)
+                while (Vector3.Distance(landingTarget.position, body.GetPosition()) > orbitRadius)
+                    yield return null;
+            else
             {
-                yield return null;
+                OWJam4ModProject.instance.ModHelper.Console.WriteLine("TAKEOFF WHILE LOOP");
+
+                while (Vector3.Distance(landingTarget.position, body.GetPosition()) < orbitRadius)
+                    yield return null;
             }
+
 
             // instantly stop. its easier
             Locator.GetPlayerBody().AddVelocityChange(-body.GetVelocity());
@@ -168,7 +183,6 @@ namespace OWJam4ModProject
             body.SetVelocity(Vector3.zero);
 
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("landed");
-            _landedOnPlanet = true;
         }
 
         #endregion
@@ -229,8 +243,6 @@ namespace OWJam4ModProject
                 body.GetComponent<AlignWithTargetBody>().enabled = false;
                 body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
                 body.GetComponentInChildren<ShuttleDoorController>().StartOpenDoors();
-
-                _landedOnPlanet = false;
             }
         }
 
