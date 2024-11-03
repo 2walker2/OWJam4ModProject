@@ -112,7 +112,7 @@ namespace OWJam4ModProject
                 if (BackSensor.IsIlluminated()) direction += Vector3.back;
                 if (LeftSensor.IsIlluminated()) direction += Vector3.left;
                 if (RightSensor.IsIlluminated()) direction += Vector3.right;
-                direction *= 20;
+                direction *= 40;
 
                 // stay in the orbit radius
                 {
