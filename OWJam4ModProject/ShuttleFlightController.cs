@@ -1,7 +1,10 @@
-﻿using NewHorizons.Utility;
+﻿using HarmonyLib;
+using NewHorizons.Utility;
 using OWML.Common;
+using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -76,6 +79,9 @@ namespace OWJam4ModProject
         {
             var belowOrbit = Vector3.Distance(landingTarget.position, body.GetPosition()) < orbitRadius;
 
+            // start aligning with body
+            StartCoroutine(DoAlign(Vector3.up));
+
             // Start moving towards planet
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * flightSpeed;
@@ -83,21 +89,13 @@ namespace OWJam4ModProject
                 velocity = -towardsPlanet * LandingSpeed;
             body.SetVelocity(velocity);
 
-
-            // start aligning with body
-            yield return DoAlign(Vector3.up);
-
             // wait until in orbit
             if (!belowOrbit)
                 while (Vector3.Distance(landingTarget.position, body.GetPosition()) > orbitRadius)
                     yield return null;
             else
-            {
-                OWJam4ModProject.instance.ModHelper.Console.WriteLine("TAKEOFF WHILE LOOP");
-
                 while (Vector3.Distance(landingTarget.position, body.GetPosition()) < orbitRadius)
                     yield return null;
-            }
 
 
             // instantly stop. its easier
@@ -161,16 +159,17 @@ namespace OWJam4ModProject
         {
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
 
+            // flip around
+            StartCoroutine(DoAlign(Vector3.down));
+
             // move to landing spot
-            Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
-            Vector3 velocity = towardsPlanet * LandingSpeed;
+            Vector3 towardsLanding = (landingPoint.transform.position - body.GetPosition()).normalized;
+            Vector3 velocity = towardsLanding * LandingSpeed;
             body.SetVelocity(velocity);
 
-            // flip around
-            yield return DoAlign(Vector3.down);
-
             // get height to land on
-            var height = Vector3.Distance(landingTarget.position, landingPoint.transform.position);
+            Physics.Raycast(body.GetPosition() + towardsLanding * 20, towardsLanding, out var hit, CLOUD_RADIUS, OWLayerMask.physicalMask);
+            var height = Vector3.Distance(landingTarget.position, hit.collider.transform.position);
             OWJam4ModProject.instance.ModHelper.Console.WriteLine($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, body.GetPosition())}");
 
             while (Vector3.Distance(landingTarget.position, body.GetPosition()) > height)
