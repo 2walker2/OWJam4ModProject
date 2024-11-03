@@ -45,40 +45,48 @@ namespace OWJam4ModProject
             // Initialize singleton
             instance = this;
 
+            GlobalMessenger.AddListener("EnterDreamWorld", InitDreamWorld);
+        }
+
+        private void InitDreamWorld()
+        {
+            ModHelper.Console.WriteLine("INIT DREAMWORLD");
+
+            Locator.GetPlayerCamera().postProcessingSettings.ambientOcclusionAvailable = true; // we have ambient light so we want this back
+
+            FindObjectOfType<ShuttleFlightController>().ResetShuttle();
+
+            // make zone1 sector guy huge
+            // can see blue atmo from other zone but idc
+            var zone1shape = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1").GetComponent<CylinderShape>();
+            zone1shape.height = 9999;
+            zone1shape.radius = 9999;
+
             // nh startlit seems to just not work, so we have to do this ourselves
-            GlobalMessenger.AddListener("EnterDreamWorld", () =>
-            {
-                Locator.GetPlayerCamera().postProcessingSettings.ambientOcclusionAvailable = true; // we have ambient light so we want this back
+            var projector = SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>();
+            projector.SetLit(true);
+            projector.SetLit(false);
 
-                FindObjectOfType<ShuttleFlightController>().ResetShuttle();
+            Delay.FireInNUpdates(MakeTheStupidLightDark, 100);
+        }
 
-                // make zone1 sector guy huge
-                // can see blue atmo from other zone but idc
-                var zone1shape = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1").GetComponent<CylinderShape>();
-                zone1shape.height = 9999;
-                zone1shape.radius = 9999;
+        /// <summary>
+        /// turn visible planet "ambient light" down
+        /// </summary>
+        private void MakeTheStupidLightDark()
+        {
+            var dw = Locator.GetDreamWorldController()._dreamBody._transform;
+            var light = dw.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP");
+            light.GetComponent<Light>().intensity = .3f;
+            ModHelper.Console.WriteLine("GO DARK YOU STUPID LIGHT");
 
-                //return;
-                SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>().SetLit(false);
-                ModHelper.Console.WriteLine("TURN OFF THE THING PLEASE");
-            });
+            // Locator.GetDreamWorldController()._dreamBody._transform.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity
         }
 
         void OnDestroy()
         {
             if (instance == this)
                 instance = null;
-        }
-
-        /// <summary>
-        /// turn visible planet "ambient light" down
-        /// </summary>
-        public static void MakeTheStupidLightDark()
-        {
-            var dw = Locator.GetDreamWorldController()._dreamBody._transform;
-            var light = dw.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP");
-            light.GetComponent<Light>().intensity = .3f;
-            instance.ModHelper.Console.WriteLine("GO DARK YOU STUPID LIGHT");
         }
     }
 

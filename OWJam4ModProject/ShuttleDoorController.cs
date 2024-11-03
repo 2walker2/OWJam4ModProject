@@ -62,8 +62,6 @@ namespace OWJam4ModProject
 
         public void StartCloseDoors()
         {
-            OWJam4ModProject.MakeTheStupidLightDark(); // have to do this way later cuz it doesnt work otherwise
-
             if (!doorsClosed && !doorsAnimating)
                 StartCoroutine(CloseDoors());
         }
