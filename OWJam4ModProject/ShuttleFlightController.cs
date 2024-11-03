@@ -1,10 +1,7 @@
-﻿using HarmonyLib;
-using NewHorizons.Utility;
+﻿using NewHorizons.Utility;
 using OWML.Common;
-using System;
 using System.Collections;
 using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,7 +23,7 @@ namespace OWJam4ModProject
         [Tooltip("The light sensor that activates flight")]
         [SerializeField] SingleLightSensor lightSensor;
         [Tooltip("The shuttle's OWRigidbody")]
-        [SerializeField] internal OWRigidbody body;
+        [SerializeField] OWRigidbody body;
 
         [Header("Orbit sensors")]
         public SingleLightSensor ForwardSensor;
@@ -41,6 +38,8 @@ namespace OWJam4ModProject
         private const int PLANET_RADIUS = 50;
 
         Transform landingTarget;
+        internal ConstantFluidDetector _shipFluidDetector;
+        private SimpleFluidVolume _planetFluidVolume;
 
         void Start()
         {
@@ -48,7 +47,10 @@ namespace OWJam4ModProject
 
             landingTarget = SearchUtilities.Find(landingTargetName).transform;
 
-            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false; // dont apply fluids FOR NOW
+            _shipFluidDetector = (ConstantFluidDetector)body.GetAttachedFluidDetector();
+            _planetFluidVolume = landingTarget.Find("AirVolume").GetComponent<SimpleFluidVolume>();
+
+            _shipFluidDetector.SetDetectableFluid(null); // dont detect fluids for now
         }
 
         void OnDestroy()
@@ -120,7 +122,7 @@ namespace OWJam4ModProject
         {
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("weve stopped. its time to fly");
 
-            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = true; // we need drag now
+            _shipFluidDetector.SetDetectableFluid(_planetFluidVolume); // we need drag now;
 
             while (true)
             {
@@ -161,7 +163,7 @@ namespace OWJam4ModProject
 
         private IEnumerator DoLanding(ShuttleLandingPoint landingPoint)
         {
-            body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
+            _shipFluidDetector.SetDetectableFluid(null);
 
             // flip around
             StartCoroutine(DoAlign(Vector3.down));
@@ -246,7 +248,7 @@ namespace OWJam4ModProject
                 body.SetAngularVelocity(Vector3.zero);
 
                 body.GetComponent<AlignWithTargetBody>().enabled = false;
-                body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
+                _shipFluidDetector.SetDetectableFluid(null);
                 body.GetComponentInChildren<ShuttleDoorController>().StartOpenDoors();
             }
         }
