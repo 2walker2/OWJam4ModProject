@@ -1,4 +1,5 @@
 ﻿using NewHorizons.Utility;
+using OWML.Common;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
@@ -51,9 +52,11 @@ namespace OWJam4ModProject
             lightSensor.OnDetectLight -= StartFlight;
         }
 
+        #region flight
+
         void StartFlight()
         {
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", OWML.Common.MessageType.Success);
+            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", MessageType.Success);
 
             // Don't take off if the takeoff puzzle isn't solved
             // if (!takeoffController.CanTakeOff())
@@ -70,11 +73,7 @@ namespace OWJam4ModProject
             body.SetVelocity(velocity);
 
             // start aligning with body
-            var align = body.GetComponent<AlignWithTargetBody>();
-            align.SetUsePhysicsToRotate(true);
-            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
-            align.SetLocalAlignmentAxis(Vector3.up);
-            align.enabled = true;
+            yield return DoAlign(Vector3.up);
 
             // wait until in orbit
             while (Vector3.Distance(landingTarget.position, body.GetPosition()) > orbitRadius)
@@ -88,6 +87,13 @@ namespace OWJam4ModProject
 
             yield return DoFlightControlsLoop();
         }
+
+        #endregion
+
+
+
+
+        #region orbit controls
 
         private IEnumerator DoFlightControlsLoop()
         {
@@ -118,6 +124,13 @@ namespace OWJam4ModProject
             }
         }
 
+        #endregion
+
+
+
+
+        #region landing
+
         public void StartLanding(ShuttleLandingPoint landingPoint)
         {
             // stop the flight thing
@@ -129,35 +142,13 @@ namespace OWJam4ModProject
         {
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
 
-            // flip around
-            var align = body.GetComponent<AlignWithTargetBody>();
-            align.SetUsePhysicsToRotate(true);
-            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
-            align.SetLocalAlignmentAxis(Vector3.down);
-            align.enabled = true;
-
             // move to landing spot
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * LandingSpeed;
             body.SetVelocity(velocity);
 
-            // hack: have to turn off use physics to rotate, so we attach player temporarily to make it not as awful
-            {
-                align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
-
-                PlayerAttachPoint.transform.position = Locator.GetPlayerTransform().position;
-                PlayerAttachPoint.transform.rotation = Locator.GetPlayerTransform().rotation;
-                PlayerAttachPoint.AttachPlayer();
-                var sw = Stopwatch.StartNew();
-                while (sw.ElapsedMilliseconds < 100)
-                {
-                    yield return null;
-                }
-                sw.Stop();
-                PlayerAttachPoint.DetachPlayer();
-
-                align.SetUsePhysicsToRotate(true);
-            }
+            // flip around
+            yield return DoAlign(Vector3.down);
 
             // get height to land on
             var height = Vector3.Distance(landingTarget.position, landingPoint.transform.position);
@@ -173,6 +164,34 @@ namespace OWJam4ModProject
             body.SetVelocity(Vector3.zero);
 
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("landed");
+        }
+
+        #endregion
+
+
+        private IEnumerator DoAlign(Vector3 direction)
+        {
+            var align = body.GetComponent<AlignWithTargetBody>();
+            align.SetUsePhysicsToRotate(true);
+            align.SetTargetBody(landingTarget.GetAttachedOWRigidbody());
+            align.SetLocalAlignmentAxis(direction);
+            align.enabled = true;
+
+            // hack: have to turn off use physics to rotate, so we attach player temporarily to make it not as awful
+            align.SetUsePhysicsToRotate(false); // for some reason it doesnt flip unless i do this
+
+            PlayerAttachPoint.transform.position = Locator.GetPlayerTransform().position;
+            PlayerAttachPoint.transform.rotation = Locator.GetPlayerTransform().rotation;
+            PlayerAttachPoint.AttachPlayer();
+            var sw = Stopwatch.StartNew();
+            while (sw.ElapsedMilliseconds < 100)
+            {
+                yield return null;
+            }
+            sw.Stop();
+            PlayerAttachPoint.DetachPlayer();
+
+            align.SetUsePhysicsToRotate(true);
         }
 
 
