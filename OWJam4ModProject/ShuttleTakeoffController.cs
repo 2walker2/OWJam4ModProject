@@ -6,12 +6,14 @@ namespace OWJam4ModProject
     {
         [Tooltip("The code controller the player needs to input the launch code into")]
         [SerializeField] EclipseCodeController4 codeController;
-        [Tooltip("The dream candle the player needs to light to ignite the engines")]
-        [SerializeField] DreamCandle furnace;
+        [Tooltip("The light sensor the player needs to activate to light the furnce")]
+        [SerializeField] SingleLightSensor furnaceSensor;
         [Tooltip("The engine start audio source")]
         [SerializeField] OWAudioSource engineStartSource;
         [Tooltip("The engine hum audio source")]
         [SerializeField] OWAudioSource engineHumSource;
+        [Tooltip("The gameobject to enable when the ship activates")]
+        [SerializeField] GameObject enableWhenStarted;
 
         bool codeCorrect = false;
         bool furnaceLit = false;
@@ -21,7 +23,7 @@ namespace OWJam4ModProject
             codeController.OnOpen += CodeCorrect;
             codeController.OnClose += CodeIncorrect;
 
-            furnace.OnLitStateChanged += FurnaceLitStateChanged;
+            furnaceSensor.OnDetectLight += FurnaceLit;
         }
 
         void CodeCorrect()
@@ -36,32 +38,15 @@ namespace OWJam4ModProject
             codeCorrect = false;
         }
 
-        void FurnaceLitStateChanged()
+        void FurnaceLit()
         {
-            furnaceLit = furnace.IsLit();
-
-            if (furnaceLit)
+            if (!furnaceLit)
             {
-                if (codeCorrect)
-                {
-                    engineStartSource.Play();
-                    engineHumSource.Play();
-                }
-                else
-                {
-                    Invoke(nameof(TurnOffFurnace), 0.1f);
-                }
+                furnaceLit = true;
+                enableWhenStarted.SetActive(true);
+                engineStartSource.Play();
+                engineHumSource.Play();
             }
-        }
-
-        void TurnOffFurnace()
-        {
-            furnace.SetLit(false);
-        }
-
-        public bool CanTakeOff()
-        {
-            return codeCorrect && furnaceLit;
         }
     }
 }

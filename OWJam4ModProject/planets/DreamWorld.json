@@ -11,9 +11,9 @@
                 "assetBundle": "assets/bundle",
                 "path": "Assets/_Bundle/Prefabs/ShuttleBridge.prefab",
                 "position": {
-                    "x": -7.44574,
-                    "y": 1.797485,
-                    "z": -747.0579
+                    "x": -11.12085,
+                    "y": 1.705867,
+                    "z": -751.5388
                 },
                 "rotation": {
                     "y": 291.2297
@@ -60,7 +60,34 @@
                     "Sector_DreamWorld/ShuttleBridge"
                 ],
                 "startLit": true //code sets this to false later
-//                "toggleProjectedObjectsActive": true
+                //                "toggleProjectedObjectsActive": true
+            }
+        ],
+        "grappleTotems": [
+            {
+                "position": {
+                    "x": 0.9034,
+                    "y": 12.4871,
+                    "z": -783.6505
+                },
+                "rotation": {
+                    "x": 45,
+                    "y": 16,
+                    "z": 180
+                },
+                "arrivalDistance": 2,
+                "maxDistance": 10000,
+                "maxAngle": 90
+            },
+            {
+                "position": {
+                    "x": -19.06449,
+                    "y": 3.070305,
+                    "z": -800.059
+                },
+                "rotation": {
+                    "y": 62.8633
+                }
             }
         ]
     }
