@@ -169,7 +169,7 @@ namespace OWJam4ModProject
 
             // get height to land on
             Physics.Raycast(body.GetPosition() + towardsLanding * 20, towardsLanding, out var hit, CLOUD_RADIUS, OWLayerMask.physicalMask);
-            var height = Vector3.Distance(landingTarget.position, hit.collider.transform.position);
+            var height = Vector3.Distance(landingTarget.position, hit.point);
             OWJam4ModProject.instance.ModHelper.Console.WriteLine($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, body.GetPosition())}");
 
             while (Vector3.Distance(landingTarget.position, body.GetPosition()) > height)
