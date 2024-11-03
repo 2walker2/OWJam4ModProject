@@ -62,6 +62,8 @@ namespace OWJam4ModProject
 
         public void StartCloseDoors()
         {
+            OWJam4ModProject.MakeTheStupidLightDark(); // have to do this way later cuz it doesnt work otherwise
+
             if (!doorsClosed && !doorsAnimating)
                 StartCoroutine(CloseDoors());
         }
@@ -80,7 +82,7 @@ namespace OWJam4ModProject
 
             // Audio
             doorAudio.PlayOneShot();
-            
+
             // Animate the doors closed
             float startTime = Time.time;
             while (Time.time - startTime <= doorDuration)

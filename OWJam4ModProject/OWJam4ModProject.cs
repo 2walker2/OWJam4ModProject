@@ -50,14 +50,6 @@ namespace OWJam4ModProject
             {
                 Locator.GetPlayerCamera().postProcessingSettings.ambientOcclusionAvailable = true; // we have ambient light so we want this back
 
-                // turn this light way down
-                var dreamworld = Locator.GetDreamWorldController()._dreamBody._transform;
-                Delay.FireInNUpdates(() =>
-                {
-                    // have to wait or else it doesnt work. wtf
-                    dreamworld.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity = .3f;
-                }, 10);
-
                 FindObjectOfType<ShuttleFlightController>().ResetShuttle();
 
                 return;
@@ -70,6 +62,17 @@ namespace OWJam4ModProject
         {
             if (instance == this)
                 instance = null;
+        }
+
+        /// <summary>
+        /// turn visible planet "ambient light" down
+        /// </summary>
+        public static void MakeTheStupidLightDark()
+        {
+            var dw = Locator.GetDreamWorldController()._dreamBody._transform;
+            var light = dw.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP");
+            light.GetComponent<Light>().intensity = .3f;
+            instance.ModHelper.Console.WriteLine("GO DARK YOU STUPID LIGHT");
         }
     }
 
