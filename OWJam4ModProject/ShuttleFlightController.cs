@@ -37,6 +37,7 @@ namespace OWJam4ModProject
         private const int PLANET_RADIUS = 50;
 
         Transform landingTarget;
+        private bool _landedOnPlanet;
 
         void Start()
         {
@@ -69,8 +70,11 @@ namespace OWJam4ModProject
         {
             // Start moving towards planet
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
+            if (_landedOnPlanet) towardsPlanet = -towardsPlanet; // go away from planet instead of towards
             Vector3 velocity = towardsPlanet * flightSpeed;
             body.SetVelocity(velocity);
+
+            _landedOnPlanet = false;
 
             // start aligning with body
             yield return DoAlign(Vector3.up);
@@ -164,6 +168,7 @@ namespace OWJam4ModProject
             body.SetVelocity(Vector3.zero);
 
             OWJam4ModProject.instance.ModHelper.Console.WriteLine("landed");
+            _landedOnPlanet = true;
         }
 
         #endregion
@@ -198,6 +203,8 @@ namespace OWJam4ModProject
 
 
 
+        #region reset
+
         private Transform joe;
 
         public void ResetShuttle()
@@ -222,7 +229,11 @@ namespace OWJam4ModProject
                 body.GetComponent<AlignWithTargetBody>().enabled = false;
                 body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
                 body.GetComponentInChildren<ShuttleDoorController>().StartOpenDoors();
+
+                _landedOnPlanet = false;
             }
         }
+
+        #endregion
     }
 }
