@@ -1,4 +1,5 @@
-﻿using NewHorizons.Utility;
+﻿using HarmonyLib;
+using NewHorizons.Utility;
 using OWML.Common;
 using System;
 using System.Collections;
@@ -158,16 +159,17 @@ namespace OWJam4ModProject
         {
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
 
+            // flip around
+            StartCoroutine(DoAlign(Vector3.down));
+
             // move to landing spot
             Vector3 towardsLanding = (landingPoint.transform.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsLanding * LandingSpeed;
             body.SetVelocity(velocity);
 
-            var hits = Physics.RaycastAll(body.GetPosition(), towardsLanding, PLANET_RADIUS, OWLayerMask.physicalMask, QueryTriggerInteraction.Ignore);
-            var hit = hits.Single(x => x.collider.GetComponentInParent<ShuttleLandingPoint>() == landingPoint);
-
             // get height to land on
-            var height = Vector3.Distance(landingTarget.position, hit.transform.position);
+            Physics.Raycast(body.GetPosition() + towardsLanding * 20, towardsLanding, out var hit, CLOUD_RADIUS, OWLayerMask.physicalMask);
+            var height = Vector3.Distance(landingTarget.position, hit.collider.transform.position);
             OWJam4ModProject.instance.ModHelper.Console.WriteLine($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, body.GetPosition())}");
 
             while (Vector3.Distance(landingTarget.position, body.GetPosition()) > height)
