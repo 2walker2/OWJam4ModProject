@@ -52,6 +52,12 @@ namespace OWJam4ModProject
 
                 FindObjectOfType<ShuttleFlightController>().ResetShuttle();
 
+                // make zone1 sector guy huge
+                // can see blue atmo from other zone but idc
+                var zone1shape = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1").GetComponent<CylinderShape>();
+                zone1shape.height = 9999;
+                zone1shape.radius = 9999;
+
                 return;
                 SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>().SetLit(false);
                 ModHelper.Console.WriteLine("TURN OFF THE THING PLEASE");
