@@ -4,16 +4,20 @@ namespace OWJam4ModProject;
 
 public class ShuttleLandingPoint : MonoBehaviour
 {
+	[Header("hook up one or the other, or both")]
 	public MorseCodeSensor CodeSensor;
+	public SingleLightSensor LightSensor;
 
 	private void Awake()
 	{
-		CodeSensor.OnEnterCode += OnCode;
+		if (CodeSensor) CodeSensor.OnEnterCode += OnCode;
+		if (LightSensor) LightSensor.OnDetectLight += OnCode;
 	}
 
 	private void OnDestroy()
 	{
-		CodeSensor.OnEnterCode -= OnCode;
+		if (CodeSensor) CodeSensor.OnEnterCode -= OnCode;
+		if (LightSensor) LightSensor.OnDetectLight -= OnCode;
 	}
 
 	private void OnCode()
