@@ -68,9 +68,6 @@
                 "pathsToProjectedObjects": [
                     "Sector_DreamWorld/ShuttleBridge"
                 ],
-                "pathsToDreamCandles": [
-                    "Sector_DreamWorld/ShuttleBridge"
-                ],
                 "startLit": true //code sets this to false later
                 //                "toggleProjectedObjectsActive": true
             }

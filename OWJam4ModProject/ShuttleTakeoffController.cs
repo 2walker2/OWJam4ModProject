@@ -14,6 +14,8 @@ namespace OWJam4ModProject
         [SerializeField] OWAudioSource engineHumSource;
         [Tooltip("The gameobject to enable when the ship activates")]
         [SerializeField] GameObject enableWhenStarted;
+        [Tooltip("The candles around the furnace")]
+        [SerializeField] DreamCandle[] furnaceCandles;
 
         bool codeCorrect = false;
         bool furnaceLit = false;
@@ -24,6 +26,16 @@ namespace OWJam4ModProject
             codeController.OnClose += CodeIncorrect;
 
             furnaceSensor.OnDetectLight += FurnaceLit;
+        }
+
+        void Update()
+        {
+            //Hacky but the projection totem is being annoying again
+            if (!furnaceLit)
+            {
+                foreach (DreamCandle candle in furnaceCandles)
+                    candle.SetLit(false);
+            }
         }
 
         void CodeCorrect()
