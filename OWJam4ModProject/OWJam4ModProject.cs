@@ -52,7 +52,11 @@ namespace OWJam4ModProject
 
                 // turn this light way down
                 var dreamworld = Locator.GetDreamWorldController()._dreamBody._transform;
-                dreamworld.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity = .3f;
+                Delay.FireInNUpdates(() =>
+                {
+                    // have to wait or else it doesnt work. wtf
+                    dreamworld.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity = .3f;
+                }, 10);
 
                 FindObjectOfType<ShuttleFlightController>().ResetShuttle();
 
