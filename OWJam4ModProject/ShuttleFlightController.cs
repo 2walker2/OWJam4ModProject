@@ -223,6 +223,8 @@ namespace OWJam4ModProject
 
         public void ResetShuttle()
         {
+            StopAllCoroutines();
+
             if (!joe)
             {
                 // first time in dreamworld. just grab current location
