@@ -58,7 +58,7 @@ namespace OWJam4ModProject
                 zone1shape.height = 9999;
                 zone1shape.radius = 9999;
 
-                return;
+                //return;
                 SearchUtilities.Find("TotemPlatform").GetComponentInChildren<DreamObjectProjector>().SetLit(false);
                 ModHelper.Console.WriteLine("TURN OFF THE THING PLEASE");
             });
