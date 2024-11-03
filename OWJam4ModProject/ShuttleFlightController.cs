@@ -38,8 +38,6 @@ namespace OWJam4ModProject
         private const int PLANET_RADIUS = 50;
 
         Transform landingTarget;
-        internal ConstantFluidDetector _shipFluidDetector;
-        private SimpleFluidVolume _planetFluidVolume;
 
         void Start()
         {
