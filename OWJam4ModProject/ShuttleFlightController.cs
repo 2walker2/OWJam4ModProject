@@ -80,7 +80,7 @@ namespace OWJam4ModProject
             Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
             Vector3 velocity = towardsPlanet * flightSpeed;
             if (belowOrbit)
-                velocity = -towardsPlanet * flightSpeed;
+                velocity = -towardsPlanet * LandingSpeed;
             body.SetVelocity(velocity);
 
 
