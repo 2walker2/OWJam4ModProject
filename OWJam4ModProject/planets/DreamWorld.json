@@ -50,6 +50,18 @@
                 "rotation": {
                     "y": 107.2909
                 }
+            },
+            {
+                "assetBundle": "assets/bundle",
+                "path": "Assets/_Bundle/Prefabs/CodeHolder.prefab",
+                "position": {
+                    "x": -3.091,
+                    "y": 8.6821,
+                    "z": -790.8075
+                },
+                "rotation": {
+                    "y": 287.2909
+                }
             }
         ],
         "slideShows": [
