@@ -74,7 +74,7 @@ namespace OWJam4ModProject
 
         IEnumerator CloseDoors()
         {
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Started closing doors", OWML.Common.MessageType.Success);
+            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Started closing doors", OWML.Common.MessageType.Success);
 
             doorsAnimating = true;
 
@@ -107,12 +107,12 @@ namespace OWJam4ModProject
             doorsAnimating = false;
             doorsClosed = true;
 
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Finished closing doors", OWML.Common.MessageType.Success);
+            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Finished closing doors", OWML.Common.MessageType.Success);
         }
 
         IEnumerator OpenDoors()
         {
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Started opening doors", OWML.Common.MessageType.Success);
+            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Started opening doors", OWML.Common.MessageType.Success);
 
             doorsAnimating = true;
 
@@ -145,7 +145,7 @@ namespace OWJam4ModProject
             doorsAnimating = false;
             doorsClosed = false;
 
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Finished opening doors", OWML.Common.MessageType.Success);
+            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Finished opening doors", OWML.Common.MessageType.Success);
         }
     }
 }

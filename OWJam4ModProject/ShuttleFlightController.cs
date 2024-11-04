@@ -77,7 +77,7 @@ namespace OWJam4ModProject
 
         void StartFlight()
         {
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", MessageType.Success);
+            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", MessageType.Success);
 
             // Don't take off if the takeoff puzzle isn't solved
             if (!takeoffController.CanTakeOff())
@@ -129,7 +129,7 @@ namespace OWJam4ModProject
 
         private IEnumerator DoFlightControlsLoop()
         {
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("weve stopped. its time to fly");
+            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("weve stopped. its time to fly");
 
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = true; // we need drag now
 

@@ -63,7 +63,7 @@ public class MorseCodeSensor : MonoBehaviour
         //clears code after MAX_LONG_INTERVAL seconds of inaction
         if (DarkDiff > MAX_LONG_INTERVAL)
         {
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Reset sensor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Reset sensor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             CodeInput.Clear();
             return;
         }
@@ -87,7 +87,7 @@ public class MorseCodeSensor : MonoBehaviour
 
         //sets the light to check if it is short and makes it a true or false. true = long. false = short
         bool LightInput = LightDiff > MAX_SHORT_INTERVAL;
-        OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} input = {LightInput}");
+        //OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} input = {LightInput}");
 
         //adds currently new code input
         CodeInput.Add(LightInput);
