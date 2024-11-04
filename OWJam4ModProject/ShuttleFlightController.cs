@@ -136,6 +136,12 @@ namespace OWJam4ModProject
         {
             OWJam4ModProject.Log("weve stopped. its time to fly");
 
+            // turn on flight sounds
+            ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+            BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+            LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+            RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = true; // we need drag now
 
             while (true)
@@ -178,6 +184,12 @@ namespace OWJam4ModProject
         private IEnumerator DoLanding(ShuttleLandingPoint landingPoint)
         {
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
+
+            // turn off flight sounds
+            ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
 
             // flip around
             StartCoroutine(DoAlign(Vector3.down));
