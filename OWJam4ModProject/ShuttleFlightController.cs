@@ -221,12 +221,7 @@ namespace OWJam4ModProject
             PlayerAttachPoint.transform.position = Locator.GetPlayerTransform().position;
             PlayerAttachPoint.transform.rotation = Locator.GetPlayerTransform().rotation;
             PlayerAttachPoint.AttachPlayer();
-            var sw = Stopwatch.StartNew();
-            while (sw.ElapsedMilliseconds < 100)
-            {
-                yield return null;
-            }
-            sw.Stop();
+            yield return new WaitForSeconds(.1f);
             PlayerAttachPoint.DetachPlayer();
 
             align.SetUsePhysicsToRotate(true);

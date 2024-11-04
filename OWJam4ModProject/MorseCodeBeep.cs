@@ -1,5 +1,4 @@
-﻿using NewHorizons.Utility.OWML;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace OWJam4ModProject;
 
@@ -25,6 +24,17 @@ public class MorseCodeBeep : MonoBehaviour
 	{
 		LightSensor.OnDetectLight -= OnDetectLight;
 		LightSensor.OnDetectDarkness -= OnDetectDarkness;
+	}
+
+	// work if you turn the script on and off
+	private void OnEnable()
+	{
+		if (LightSensor.IsIlluminated()) OnDetectLight();
+	}
+
+	private void OnDisable()
+	{
+		OnDetectDarkness();
 	}
 
 	private void OnDetectLight()
