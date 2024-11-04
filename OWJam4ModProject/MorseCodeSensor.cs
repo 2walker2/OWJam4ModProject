@@ -52,7 +52,7 @@ public class MorseCodeSensor : MonoBehaviour
     }
     private void OnDetectLight()
     {
-        OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} detect light");
+        // OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} detect light");
 
         // HACK HACK HACK HACK
         // FindObjectOfType<ShuttleFlightController>().body.SetVelocity(Vector3.zero);
@@ -69,7 +69,7 @@ public class MorseCodeSensor : MonoBehaviour
 
     private void OnDetectDarkness()
     {
-        OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} detect dark");
+        // OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} detect dark");
 
         LastDarkTime = Time.time;
 
