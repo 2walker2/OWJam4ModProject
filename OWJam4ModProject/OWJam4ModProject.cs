@@ -53,9 +53,10 @@ namespace OWJam4ModProject
             zone1shape.radius = 9999;
 
             // add sector to things that need it
-            foreach (var tessSphereSectorToggle in GameObject.Find("DreamWorld_Body").GetComponentsInChildren<TessSphereSectorToggle>())
+            var dreamWorldController = FindObjectOfType<DreamWorldController>();
+            foreach (var tessSphereSectorToggle in dreamWorldController._dreamBody.GetComponentsInChildren<TessSphereSectorToggle>())
             {
-                tessSphereSectorToggle._sector = Locator.GetDreamWorldController()._dreamWorldSector;
+                tessSphereSectorToggle._sector = dreamWorldController._dreamWorldSector;
                 Log($"set sector for {tessSphereSectorToggle}");
             }
         }
