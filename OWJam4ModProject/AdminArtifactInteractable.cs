@@ -6,6 +6,9 @@ public class AdminArtifactInteractable : MonoBehaviour
 {
 	public InteractReceiver InteractReceiver;
 
+	[Tooltip("The gameobject to disable when picked up")]
+	[SerializeField] GameObject objectToDisable;
+
 	private void Start()
 	{
 		InteractReceiver.ChangePrompt("Elevate Privileges");
@@ -19,7 +22,7 @@ public class AdminArtifactInteractable : MonoBehaviour
 
 	private void OnPressInteract()
 	{
-		gameObject.SetActive(false);
+		objectToDisable.SetActive(false);
 		AdminArtifact.AttachToPlayerLantern();
 	}
 }
