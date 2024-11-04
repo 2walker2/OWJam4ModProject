@@ -84,7 +84,7 @@ namespace OWJam4ModProject
             }, 100);
 
             //Attach admin artifact
-            AdminArtifact.AttachToPlayerLantern();
+            //AdminArtifact.AttachToPlayerLantern();
         }
 
         void OnDestroy()
