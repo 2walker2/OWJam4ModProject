@@ -53,12 +53,29 @@ namespace OWJam4ModProject
             zone1shape.radius = 9999;
 
             // add sector to things that need it
-            var dreamWorldController = FindObjectOfType<DreamWorldController>();
+            /*var dreamWorldController = FindObjectOfType<DreamWorldController>();
             foreach (var tessSphereSectorToggle in dreamWorldController._dreamBody.GetComponentsInChildren<TessSphereSectorToggle>())
             {
                 tessSphereSectorToggle._sector = dreamWorldController._dreamWorldSector;
                 Log($"set sector for {tessSphereSectorToggle}");
+            }*/
+
+            //Geswaldo sector
+            GameObject geswaldo = SearchUtilities.Find("DreamGeswaldo");
+            if (geswaldo != null)
+            {
+                GameObject zone2SectorGO = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_2");
+                if (zone2SectorGO != null)
+                {
+                    geswaldo.GetComponent<SectorCullGroup>().SetSector(zone2SectorGO.GetComponent<Sector>());
+                }
+                else
+                {
+                    Log("Sector nooooooooooooooooooooooooooooooo!", MessageType.Error);
+                }
             }
+            else
+                Log("Geswaldo nooooooooooooooooooooooooooooooo!", MessageType.Error);
         }
 
         private void InitDreamWorld()
@@ -84,9 +101,6 @@ namespace OWJam4ModProject
                 // unity explorer script
                 // Locator.GetDreamWorldController()._dreamBody._transform.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity
             }, 100);
-
-            //Attach admin artifact
-            //AdminArtifact.AttachToPlayerLantern();
         }
 
         void OnDestroy()

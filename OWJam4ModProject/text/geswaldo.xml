@@ -1,0 +1,11 @@
+<DialogueTree   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+	<NameField>Geswaldo</NameField>
+	<DialogueNode>
+		<Name>START</Name>
+		<EntryCondition>DEFAULT</EntryCondition>
+		<Dialogue>
+			<Page>Shhhh. I'm hiding.</Page>
+			<Page>Being an easter egg is fun!</Page>
+		</Dialogue>
+	</DialogueNode>
+</DialogueTree>
