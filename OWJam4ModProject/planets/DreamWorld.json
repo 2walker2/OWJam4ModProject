@@ -66,10 +66,125 @@
         ],
         "slideShows": [
             {
-                "parentPath": "Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/PlanetSurface_Body/LandingPoint/LandingPad/SlideSocket",
-                "isRelativeToParent": true,
+                "position": {
+                    "x": -752.1229,
+                    "y": 2208.551,
+                    "z": -53.131
+                },
+                "rotation": {
+                    "x": 344.2348,
+                    "y": 172.5227,
+                    "z": 0
+                },
+                "type": "standingVisionTorch",
                 "slides": [
-                    { "imagePath": "assets/slides/frame_1.jpg" }
+                    {
+                        "imagePath": "assets/slides/MorseCode/f0.jpg",
+                        "backdropAudio": "assets/slideAudio/OffLoop.ogg",
+                        "backdropFadeTime": 0.5,
+                        "playTimeDuration": 1.5
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/f1.jpg",
+                        "playTimeDuration": 1
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/f2.jpg",
+                        "playTimeDuration": 1
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/f5.jpg",
+                        "beatAudio": "assets/slideAudio/RevealBeat.ogg",
+                        "playTimeDuration": 1
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/f6.jpg",
+                        "playTimeDuration": 1
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/f7.jpg",
+                        "playTimeDuration": 1
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/0.jpg",
+                        "playTimeDuration": 2.0
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/1.jpg",
+                        "backdropAudio": "assets/slideAudio/OnLoop.ogg",
+                        "beatAudio": "assets/slideAudio/On.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 0.5
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/2.jpg",
+                        "backdropAudio": "assets/slideAudio/OffLoop.ogg",
+                        "beatAudio": "assets/slideAudio/Off.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 0.2
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/3.jpg",
+                        "playTimeDuration": 0.4
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/4.jpg",
+                        "backdropAudio": "assets/slideAudio/OnLoop.ogg",
+                        "beatAudio": "assets/slideAudio/On.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 0.5
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/5.jpg",
+                        "backdropAudio": "assets/slideAudio/OffLoop.ogg",
+                        "beatAudio": "assets/slideAudio/Off.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 0.2
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/6.jpg",
+                        "playTimeDuration": 0.5
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/7.jpg",
+                        "backdropAudio": "assets/slideAudio/OnLoop.ogg",
+                        "beatAudio": "assets/slideAudio/On.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 2
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/11.jpg",
+                        "backdropAudio": "assets/slideAudio/OffLoop.ogg",
+                        "beatAudio": "assets/slideAudio/Off.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 0.2
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/12.jpg",
+                        "playTimeDuration": 0.5
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/13.jpg",
+                        "backdropAudio": "assets/slideAudio/OnLoop.ogg",
+                        "beatAudio": "assets/slideAudio/On.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 0.5
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/14.jpg",
+                        "backdropAudio": "assets/slideAudio/OffLoop.ogg",
+                        "beatAudio": "assets/slideAudio/Off.ogg",
+                        "backdropFadeTime": 0.05,
+                        "playTimeDuration": 0.2
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/15.jpg",
+                        "playTimeDuration": 0.5
+                    },
+                    {
+                        "imagePath": "assets/slides/MorseCode/16.jpg",
+                        "playTimeDuration": 3
+                    }
                 ]
             }
         ],
