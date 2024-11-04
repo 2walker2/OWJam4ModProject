@@ -1,5 +1,4 @@
-﻿using NewHorizons.Builder.Props;
-using NewHorizons.External.Modules.Props;
+﻿using NewHorizons.Utility.Files;
 using OWML.Common;
 using UnityEngine;
 
@@ -14,11 +13,15 @@ public class AdminArtifact : MonoBehaviour
 		var playerLantern = Locator.GetDreamWorldController().GetPlayerLantern();
 		if (playerLantern.GetComponentInChildren<AdminArtifact>()) return; // already attached
 
-		var adminStuff = DetailBuilder.Make(playerLantern.gameObject, null, new DetailInfo()
-		{
-			assetBundle = "assets/bundle",
-			path = "Assets/_Bundle/Prefabs/AdminArtifact.prefab"
-		});
+		OWJam4ModProject.instance.ModHelper.Console.WriteLine("elevating privileges");
+
+		// detail builder is not working here so we must do it ourselves teehee
+		var prefab = AssetBundleUtilities.AssetBundles["bundle"].bundle.LoadAsset<GameObject>("Assets/_Bundle/Prefabs/AdminArtifact.prefab");
+		prefab.SetActive(false);
+		AssetBundleUtilities.ReplaceShaders(prefab);
+		var instance = Instantiate(prefab);
+		instance.transform.SetParent(playerLantern.transform, false);
+		instance.SetActive(true);
 	}
 
 	private void Awake()
