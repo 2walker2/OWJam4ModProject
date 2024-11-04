@@ -62,14 +62,23 @@
                 "rotation": {
                     "y": 287.2909
                 }
+            },
+            {
+                "assetBundle": "assets/bundle",
+                "path": "Assets/_Bundle/Prefabs/VisionTorchLight.prefab",
+                "position": {
+                    "x": -752.1228,
+                    "y": 2208.21,
+                    "z": -53.1311
+                }
             }
         ],
         "slideShows": [
             {
                 "position": {
-                    "x": -752.1229,
-                    "y": 2208.551,
-                    "z": -53.131
+                    "x": -752.1228,
+                    "y": 2208.21,
+                    "z": -53.1311
                 },
                 "rotation": {
                     "x": 344.2348,

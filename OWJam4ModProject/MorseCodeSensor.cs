@@ -9,7 +9,7 @@ namespace OWJam4ModProject;
 /// </summary>
 public class MorseCodeSensor : MonoBehaviour
 {
-    public const float MAX_SHORT_INTERVAL = 1f;
+    public const float MAX_SHORT_INTERVAL = 0.7f;
 
     public const float MAX_LONG_INTERVAL = 3f;
 
@@ -62,6 +62,7 @@ public class MorseCodeSensor : MonoBehaviour
         //clears code after MAX_LONG_INTERVAL seconds of inaction
         if (DarkDiff > MAX_LONG_INTERVAL)
         {
+            OWJam4ModProject.instance.ModHelper.Console.WriteLine("Reset sensor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             CodeInput.Clear();
             return;
         }
