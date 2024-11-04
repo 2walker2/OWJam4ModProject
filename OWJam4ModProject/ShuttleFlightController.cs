@@ -66,6 +66,11 @@ namespace OWJam4ModProject
                 StopAllCoroutines();
                 StartCoroutine(FlyToPlanet());
             }
+
+            if (Keyboard.current[Key.End].wasPressedThisFrame)
+            {
+                AdminArtifact.AttachToPlayerLantern();
+            }
         }
 
         void StartFlight()
