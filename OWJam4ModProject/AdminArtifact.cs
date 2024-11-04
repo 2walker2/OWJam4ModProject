@@ -30,6 +30,8 @@ public class AdminArtifact : MonoBehaviour
 
 	private void Update()
 	{
+		particles.SetActive(Locator.GetDreamWorldController().IsInDream());
+
 		if (!OWJam4ModProject.DEBUG) return;
 
 		if (!Keyboard.current[Key.LeftCtrl].isPressed) return;
@@ -41,8 +43,6 @@ public class AdminArtifact : MonoBehaviour
 		if (Keyboard.current[Key.Digit5].wasPressedThisFrame) WarpToSpawnPoint("Spawn_DreamZone_2_LighthouseUpstairs");
 		if (Keyboard.current[Key.Digit6].wasPressedThisFrame) WarpToSpawnPoint("Spawn_Underground_CodeTotems");
 		if (Keyboard.current[Key.Digit7].wasPressedThisFrame) WarpToSpawnPoint("AdminZoneSpawnPoint");
-
-		particles.SetActive(Locator.GetDreamWorldController().IsInDream());
 	}
 
 	private void Awake()
