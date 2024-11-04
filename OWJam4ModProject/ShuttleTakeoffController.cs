@@ -48,7 +48,7 @@ namespace OWJam4ModProject
         {
             codeCorrect = true;
 
-            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Correct takeoff code entered", OWML.Common.MessageType.Success);
+            OWJam4ModProject.Log("Correct takeoff code entered", OWML.Common.MessageType.Success);
         }
 
         void CodeIncorrect()

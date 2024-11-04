@@ -15,7 +15,7 @@ public class AdminArtifact : MonoBehaviour
 		var playerLantern = Locator.GetDreamWorldController().GetPlayerLantern();
 		if (playerLantern.GetComponentInChildren<AdminArtifact>()) return; // already attached
 
-		//OWJam4ModProject.instance.ModHelper.Console.WriteLine("elevating privileges");
+		OWJam4ModProject.Log("elevating privileges");
 
 		// detail builder is not working here so we must do it ourselves teehee
 		var prefab = AssetBundleUtilities.AssetBundles["bundle"].bundle.LoadAsset<GameObject>("Assets/_Bundle/Prefabs/AdminArtifact.prefab");
@@ -28,7 +28,7 @@ public class AdminArtifact : MonoBehaviour
 
 	private void Awake()
 	{
-		//OWJam4ModProject.instance.ModHelper.Console.WriteLine("hello i am admin now hooray", MessageType.Success);
+		OWJam4ModProject.Log("hello i am admin now hooray", MessageType.Success);
 
 		foreach (var sensor in CodeSensors)
 		{
@@ -39,7 +39,7 @@ public class AdminArtifact : MonoBehaviour
 
 	private void OnEnterCode(MorseCodeSensor sensor)
 	{
-		//OWJam4ModProject.instance.ModHelper.Console.WriteLine($"sensor {sensor} activate", MessageType.Success);
+		OWJam4ModProject.Log($"sensor {sensor} activate", MessageType.Success);
 
 		WarpToSpawnPoint(sensor.name);
 
