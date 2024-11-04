@@ -1,4 +1,5 @@
 ﻿using NewHorizons.Utility;
+using NewHorizons.Utility.OWML;
 using OWML.Common;
 using System.Collections;
 using System.Diagnostics;
@@ -53,11 +54,15 @@ namespace OWJam4ModProject
 
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false; // dont apply fluids FOR NOW
 
-            // turn off flight sounds
-            ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
-            BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
-            LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
-            RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            // gotta wait so originalVolume is correct
+            Delay.FireOnNextUpdate(() =>
+            {
+                // turn off flight sounds
+                ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            });
         }
 
         void OnDestroy()
