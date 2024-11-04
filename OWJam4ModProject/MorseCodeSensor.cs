@@ -53,7 +53,7 @@ public class MorseCodeSensor : MonoBehaviour
 
     private void OnDetectLight()
     {
-        // OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} detect light");
+        // OWJam4ModProject.Log($"{this} detect light");
 
         // HACK HACK HACK HACK
         // FindObjectOfType<ShuttleFlightController>().body.SetVelocity(Vector3.zero);
@@ -63,7 +63,7 @@ public class MorseCodeSensor : MonoBehaviour
         //clears code after MAX_LONG_INTERVAL seconds of inaction
         if (DarkDiff > MAX_LONG_INTERVAL)
         {
-            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Reset sensor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            OWJam4ModProject.Log("Reset sensor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             CodeInput.Clear();
             return;
         }
@@ -71,7 +71,7 @@ public class MorseCodeSensor : MonoBehaviour
 
     private void OnDetectDarkness()
     {
-        // OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} detect dark");
+        // OWJam4ModProject.Log($"{this} detect dark");
 
         LastDarkTime = Time.time;
 
@@ -87,7 +87,7 @@ public class MorseCodeSensor : MonoBehaviour
 
         //sets the light to check if it is short and makes it a true or false. true = long. false = short
         bool LightInput = LightDiff > MAX_SHORT_INTERVAL;
-        //OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} input = {LightInput}");
+        OWJam4ModProject.Log($"{this} input = {LightInput}");
 
         //adds currently new code input
         CodeInput.Add(LightInput);

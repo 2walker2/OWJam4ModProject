@@ -63,8 +63,13 @@ namespace OWJam4ModProject
 
         void Update()
         {
+            if (!OWJam4ModProject.DEBUG) return;
+
             if (Keyboard.current[Key.Home].wasPressedThisFrame)
             {
+                takeoffAudio.Play();
+
+
                 StopAllCoroutines();
                 StartCoroutine(FlyToPlanet());
             }
@@ -77,7 +82,7 @@ namespace OWJam4ModProject
 
         void StartFlight()
         {
-            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("Starting shuttle flight", MessageType.Success);
+            OWJam4ModProject.Log("Starting shuttle flight", MessageType.Success);
 
             // Don't take off if the takeoff puzzle isn't solved
             if (!takeoffController.CanTakeOff())
@@ -129,7 +134,7 @@ namespace OWJam4ModProject
 
         private IEnumerator DoFlightControlsLoop()
         {
-            //OWJam4ModProject.instance.ModHelper.Console.WriteLine("weve stopped. its time to fly");
+            OWJam4ModProject.Log("weve stopped. its time to fly");
 
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = true; // we need drag now
 
@@ -185,7 +190,7 @@ namespace OWJam4ModProject
             // get height to land on
             Physics.Raycast(transform.position + towardsLanding * 20, towardsLanding, out var hit, CLOUD_RADIUS, OWLayerMask.physicalMask);
             var height = Vector3.Distance(landingTarget.position, hit.point);
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, transform.position)}");
+            OWJam4ModProject.Log($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, transform.position)}");
 
             while (Vector3.Distance(landingTarget.position, transform.position) > height)
             {
@@ -196,7 +201,7 @@ namespace OWJam4ModProject
             Locator.GetPlayerBody().AddVelocityChange(-body.GetVelocity());
             body.SetVelocity(Vector3.zero);
 
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine("landed");
+            OWJam4ModProject.Log("landed");
         }
 
         #endregion
@@ -249,7 +254,7 @@ namespace OWJam4ModProject
             }
             else
             {
-                OWJam4ModProject.instance.ModHelper.Console.WriteLine($"resetting shuttle to {joe.position} {joe.rotation}");
+                OWJam4ModProject.Log($"resetting shuttle to {joe.position} {joe.rotation}");
 
                 transform.position = joe.position;
                 transform.rotation = joe.rotation;

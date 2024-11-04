@@ -11,6 +11,7 @@ namespace OWJam4ModProject
 {
     public class OWJam4ModProject : ModBehaviour
     {
+        public const bool DEBUG = true;
 
         public static ModBehaviour instance;
 
@@ -26,7 +27,7 @@ namespace OWJam4ModProject
         private void Start()
         {
             // Starting here, you'll have access to OWML's mod helper.
-            ModHelper.Console.WriteLine($"My mod {nameof(OWJam4ModProject)} is loaded!", MessageType.Success);
+            Log($"My mod {nameof(OWJam4ModProject)} is loaded!", MessageType.Success);
 
             // Get the New Horizons API and load configs
             var newHorizons = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
@@ -43,7 +44,7 @@ namespace OWJam4ModProject
         private void OnStarSystemLoaded(string system)
         {
             if (system != "SolarSystem") return;
-            ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
+            Log("Loaded into solar system!", MessageType.Success);
 
             // make zone1 sector guy huge
             // can see blue atmo from other zone but idc
@@ -55,13 +56,13 @@ namespace OWJam4ModProject
             foreach (var tessSphereSectorToggle in GameObject.Find("DreamWorld_Body").GetComponentsInChildren<TessSphereSectorToggle>())
             {
                 tessSphereSectorToggle._sector = Locator.GetDreamWorldController()._dreamWorldSector;
-                ModHelper.Console.WriteLine($"set sector for {tessSphereSectorToggle}");
+                Log($"set sector for {tessSphereSectorToggle}");
             }
         }
 
         private void InitDreamWorld()
         {
-            ModHelper.Console.WriteLine("INIT DREAMWORLD");
+            Log("INIT DREAMWORLD");
 
             Locator.GetPlayerCamera().postProcessingSettings.ambientOcclusionAvailable = true; // we have ambient light so we want this back
 
@@ -77,7 +78,7 @@ namespace OWJam4ModProject
                 // turn visible planet "ambient light" down
                 var light = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP");
                 light.GetComponent<Light>().intensity = .3f;
-                ModHelper.Console.WriteLine("GO DARK YOU STUPID LIGHT");
+                Log("GO DARK YOU STUPID LIGHT");
 
                 // unity explorer script
                 // Locator.GetDreamWorldController()._dreamBody._transform.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity
@@ -91,6 +92,12 @@ namespace OWJam4ModProject
         {
             if (instance == this)
                 instance = null;
+        }
+
+        public static void Log(string line, MessageType type = MessageType.Message)
+        {
+            if (!DEBUG) return;
+            instance.ModHelper.Console.WriteLine(line, type);
         }
     }
 

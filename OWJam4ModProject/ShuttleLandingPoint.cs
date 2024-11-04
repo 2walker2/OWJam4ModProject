@@ -22,7 +22,7 @@ public class ShuttleLandingPoint : MonoBehaviour
 
 	private void OnCode()
 	{
-		OWJam4ModProject.instance.ModHelper.Console.WriteLine("ding dong");
+		OWJam4ModProject.Log("ding dong");
 
 		FindObjectOfType<ShuttleFlightController>().StartLanding(this);
 	}
