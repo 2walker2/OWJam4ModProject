@@ -1,5 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/addon_manifest_schema.json",
     "popupMessage": "A new exhibit has been added to the museum.",
-    "credits": ["Greenpixel","JohnCorby","Walker"]
+    "credits": [ "Greenpixel", "JohnCorby", "Walker" ],
+    "subtitlePath": "assets/Root_Access_Subtitle.png"
 }
