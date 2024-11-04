@@ -11,6 +11,8 @@ public class MorseCodeBeep : MonoBehaviour
 
 	private void Start()
 	{
+		LightSensor.OnDetectLight -= OnDetectLight;
+		LightSensor.OnDetectDarkness -= OnDetectDarkness;
 		LightSensor.OnDetectLight += OnDetectLight;
 		LightSensor.OnDetectDarkness += OnDetectDarkness;
 
@@ -29,11 +31,19 @@ public class MorseCodeBeep : MonoBehaviour
 	// work if you turn the script on and off
 	private void OnEnable()
 	{
+		LightSensor.OnDetectLight -= OnDetectLight;
+		LightSensor.OnDetectDarkness -= OnDetectDarkness;
+		LightSensor.OnDetectLight += OnDetectLight;
+		LightSensor.OnDetectDarkness += OnDetectDarkness;
+
 		if (LightSensor.IsIlluminated()) OnDetectLight();
 	}
 
 	private void OnDisable()
 	{
+		LightSensor.OnDetectLight -= OnDetectLight;
+		LightSensor.OnDetectDarkness -= OnDetectDarkness;
+
 		OnDetectDarkness();
 	}
 

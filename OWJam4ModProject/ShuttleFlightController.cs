@@ -1,4 +1,5 @@
 ﻿using NewHorizons.Utility;
+using NewHorizons.Utility.OWML;
 using OWML.Common;
 using System.Collections;
 using System.Diagnostics;
@@ -52,6 +53,16 @@ namespace OWJam4ModProject
             shipFluidDetector.SetDetectableFluid(planetFluidVolume);
 
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false; // dont apply fluids FOR NOW
+
+            // gotta wait so originalVolume is correct
+            Delay.FireOnNextUpdate(() =>
+            {
+                // turn off flight sounds
+                ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            });
         }
 
         void OnDestroy()
@@ -136,6 +147,12 @@ namespace OWJam4ModProject
         {
             OWJam4ModProject.Log("weve stopped. its time to fly");
 
+            // turn on flight sounds
+            ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+            BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+            LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+            RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = true;
+
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = true; // we need drag now
 
             while (true)
@@ -178,6 +195,12 @@ namespace OWJam4ModProject
         private IEnumerator DoLanding(ShuttleLandingPoint landingPoint)
         {
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
+
+            // turn off flight sounds
+            ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
 
             // flip around
             StartCoroutine(DoAlign(Vector3.down));
@@ -259,6 +282,12 @@ namespace OWJam4ModProject
                 body.GetComponent<AlignWithTargetBody>().enabled = false;
                 body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
                 body.GetComponentInChildren<ShuttleDoorController>().StartOpenDoors();
+
+                // turn off flight sounds
+                ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
             }
         }
 

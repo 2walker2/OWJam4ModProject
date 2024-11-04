@@ -8,9 +8,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <NoWarn>MSB3270</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DebugType>none</DebugType>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
     <ItemGroup>
 	    <Reference Include="NewHorizons">
@@ -54,6 +52,9 @@
     <None Include="addon-manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+      <None Include="subtitle.png" Condition="Exists('subtitle.png')">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\" />
