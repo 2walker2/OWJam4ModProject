@@ -21,6 +21,9 @@ namespace OWJam4ModProject
             // So you probably don't want to do anything here.
             // Use Start() instead.
 
+            // Initialize singleton
+            instance = this;
+
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
         }
 
@@ -34,9 +37,6 @@ namespace OWJam4ModProject
             newHorizons.LoadConfigs(this);
 
             newHorizons.GetStarSystemLoadedEvent().AddListener(OnStarSystemLoaded);
-
-            // Initialize singleton
-            instance = this;
 
             GlobalMessenger.AddListener("EnterDreamWorld", InitDreamWorld);
         }
