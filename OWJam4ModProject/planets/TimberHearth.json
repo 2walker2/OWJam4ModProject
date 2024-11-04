@@ -89,10 +89,35 @@
 				"type": "standingVisionTorch",
 				"slides": [
                     { 
-                        "imagePath": "assets/slides/MorseCode/0.jpg",
+                        "imagePath": "assets/slides/MorseCode/f0.jpg",
                         "backdropAudio": "assets/slideAudio/OffLoop.ogg",
                         "backdropFadeTime": 0.5,
+                        "playTimeDuration": 1.5
+                    },
+                    { 
+                        "imagePath": "assets/slides/MorseCode/f1.jpg",
                         "playTimeDuration": 1
+                    },
+                    { 
+                        "imagePath": "assets/slides/MorseCode/f2.jpg",
+                        "playTimeDuration": 1
+                    },
+                    { 
+                        "imagePath": "assets/slides/MorseCode/f5.jpg",
+                        "beatAudio": "assets/slideAudio/RevealBeat.ogg",
+                        "playTimeDuration": 1
+                    },
+                    { 
+                        "imagePath": "assets/slides/MorseCode/f6.jpg",
+                        "playTimeDuration": 1
+                    },
+                    { 
+                        "imagePath": "assets/slides/MorseCode/f7.jpg",
+                        "playTimeDuration": 1
+                    },
+                    { 
+                        "imagePath": "assets/slides/MorseCode/0.jpg",
+                        "playTimeDuration": 2.0
                     },
                     { 
                         "imagePath": "assets/slides/MorseCode/1.jpg",
