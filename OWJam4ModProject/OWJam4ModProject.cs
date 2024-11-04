@@ -11,7 +11,7 @@ namespace OWJam4ModProject
 {
     public class OWJam4ModProject : ModBehaviour
     {
-        public const bool DEBUG = true;
+        public const bool DEBUG = false;
 
         public static ModBehaviour instance;
 
@@ -103,6 +103,9 @@ namespace OWJam4ModProject
                 // unity explorer script
                 // Locator.GetDreamWorldController()._dreamBody._transform.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity
             }, 100);
+
+            //Open the zone 1 raft door
+            SearchUtilities.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1/Interactibles_DreamZone_1/Tunnel/Prefab_IP_DreamObjectProjector (2)").GetComponent<DreamObjectProjector>().SetLit(false);
         }
 
         void OnDestroy()
