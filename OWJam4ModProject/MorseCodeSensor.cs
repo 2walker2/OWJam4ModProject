@@ -9,7 +9,7 @@ namespace OWJam4ModProject;
 /// </summary>
 public class MorseCodeSensor : MonoBehaviour
 {
-    public const float MAX_SHORT_INTERVAL = 0.5f;
+    public const float MAX_SHORT_INTERVAL = 1f;
 
     public const float MAX_LONG_INTERVAL = 3f;
 
