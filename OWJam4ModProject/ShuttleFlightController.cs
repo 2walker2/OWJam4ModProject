@@ -52,6 +52,12 @@ namespace OWJam4ModProject
             shipFluidDetector.SetDetectableFluid(planetFluidVolume);
 
             body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false; // dont apply fluids FOR NOW
+
+            // turn off flight sounds
+            ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+            RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
         }
 
         void OnDestroy()
@@ -271,6 +277,12 @@ namespace OWJam4ModProject
                 body.GetComponent<AlignWithTargetBody>().enabled = false;
                 body.GetAttachedFluidDetector().GetComponent<ForceApplier>().enabled = false;
                 body.GetComponentInChildren<ShuttleDoorController>().StartOpenDoors();
+
+                // turn off flight sounds
+                ForwardSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                BackSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                LeftSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
+                RightSensor.GetComponentInChildren<MorseCodeBeep>().enabled = false;
             }
         }
 
