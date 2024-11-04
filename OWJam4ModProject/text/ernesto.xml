@@ -1,0 +1,14 @@
+<DialogueTree   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/xen-42/outer-wilds-new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+	<NameField>Ernesto</NameField>
+	<DialogueNode>
+		<Name>START</Name>
+		<EntryCondition>DEFAULT</EntryCondition>
+		<Dialogue>
+			<Page>Welcome to the admin zone of the simulation! Take a look around and you might find some useful tools.</Page>
+			<Page>This is the end of the mod (so we're allowed to talk now). We hope you had fun!</Page>
+			<Page>But I know what you're here for: the obligatory Ernesto easter egg.</Page>
+			<Page>Well I'm a bit tired of being an easter egg, so I thought I'd give my husband Geswaldo a turn.</Page>
+			<Page>He's hidden somwhere in the simulation. There might be a clue around here somewhere. Have fun finding him!</Page>
+		</Dialogue>
+	</DialogueNode>
+</DialogueTree>

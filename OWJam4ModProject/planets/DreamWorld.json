@@ -107,6 +107,13 @@
                 "radius": 2,
                 "range": 5,
                 "xmlFile": "text/geswaldo.xml"
+            },
+            {
+                "parentPath": "Sector_DreamWorld/Ernesto",
+                "isRelativeToParent": true,
+                "radius": 2,
+                "range": 5,
+                "xmlFile": "text/ernesto.xml"
             }
         ],
         "slideShows": [

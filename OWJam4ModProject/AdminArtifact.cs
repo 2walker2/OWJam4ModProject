@@ -9,6 +9,8 @@ namespace OWJam4ModProject;
 public class AdminArtifact : MonoBehaviour
 {
 	public MorseCodeSensor[] CodeSensors;
+	[Tooltip("The particles to disable outside the dreamworld")]
+	[SerializeField] GameObject particles;
 
 	public static void AttachToPlayerLantern()
 	{
@@ -39,6 +41,8 @@ public class AdminArtifact : MonoBehaviour
 		if (Keyboard.current[Key.Digit5].wasPressedThisFrame) WarpToSpawnPoint("Spawn_DreamZone_2_LighthouseUpstairs");
 		if (Keyboard.current[Key.Digit6].wasPressedThisFrame) WarpToSpawnPoint("Spawn_Underground_CodeTotems");
 		if (Keyboard.current[Key.Digit7].wasPressedThisFrame) WarpToSpawnPoint("AdminZoneSpawnPoint");
+
+		particles.SetActive(Locator.GetDreamWorldController().IsInDream());
 	}
 
 	private void Awake()
