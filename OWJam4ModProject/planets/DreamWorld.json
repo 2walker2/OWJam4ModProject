@@ -128,6 +128,7 @@
                     "y": 172.5227,
                     "z": 0
                 },
+                "rename": "MorseVisionTorch",
                 "type": "standingVisionTorch",
                 "slides": [
                     {

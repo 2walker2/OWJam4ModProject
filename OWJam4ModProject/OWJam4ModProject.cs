@@ -78,6 +78,11 @@ namespace OWJam4ModProject
             }
             else
                 Log("Geswaldo nooooooooooooooooooooooooooooooo!", MessageType.Error);
+
+            //Vision torch parent
+            GameObject visionTorchParent = SearchUtilities.Find("MorseVisionTorchSocket");
+            GameObject visionTorch = SearchUtilities.Find("MorseVisionTorch");
+            visionTorch.transform.parent = visionTorchParent.transform;
         }
 
         private void InitDreamWorld()
