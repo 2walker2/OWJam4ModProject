@@ -1,8 +1,8 @@
 ﻿using NewHorizons.Utility;
 using NewHorizons.Utility.Files;
 using OWML.Common;
-using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace OWJam4ModProject;
 
@@ -24,6 +24,21 @@ public class AdminArtifact : MonoBehaviour
 		var instance = Instantiate(prefab);
 		instance.transform.SetParent(playerLantern.transform, false);
 		instance.SetActive(true);
+	}
+
+	private void Update()
+	{
+		if (!OWJam4ModProject.DEBUG) return;
+
+		if (!Keyboard.current[Key.LeftCtrl].isPressed) return;
+		// copied names from unity
+		if (Keyboard.current[Key.Digit1].wasPressedThisFrame) WarpToSpawnPoint("Spawn_DreamZone_1");
+		if (Keyboard.current[Key.Digit2].wasPressedThisFrame) WarpToSpawnPoint("Spawn_DreamZone_2");
+		if (Keyboard.current[Key.Digit3].wasPressedThisFrame) WarpToSpawnPoint("Spawn_DreamZone_3");
+		if (Keyboard.current[Key.Digit4].wasPressedThisFrame) WarpToSpawnPoint("Spawn_DreamZone_4_Dock");
+		if (Keyboard.current[Key.Digit5].wasPressedThisFrame) WarpToSpawnPoint("Spawn_DreamZone_2_LighthouseUpstairs");
+		if (Keyboard.current[Key.Digit6].wasPressedThisFrame) WarpToSpawnPoint("Spawn_Underground_CodeTotems");
+		if (Keyboard.current[Key.Digit7].wasPressedThisFrame) WarpToSpawnPoint("AdminZoneSpawnPoint");
 	}
 
 	private void Awake()

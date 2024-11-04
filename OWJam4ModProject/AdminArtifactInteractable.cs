@@ -6,7 +6,7 @@ public class AdminArtifactInteractable : MonoBehaviour
 {
 	public InteractReceiver InteractReceiver;
 
-	private void Awake()
+	private void Start()
 	{
 		InteractReceiver.ChangePrompt("Elevate Privileges");
 		InteractReceiver.OnPressInteract += OnPressInteract;
