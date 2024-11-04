@@ -42,7 +42,14 @@
                     "y": 7.458096,
                     "z": 217.3516
                 },
-                "xmlFile": "text/museum_plaque.xml"
+                "xmlFile": "text/museum_plaque.xml",
+                "attentionPoint": {
+                    "position": {
+                        "x": -63.3894,
+                        "y": 9.225949,
+                        "z": 217.0663
+                    }
+                }
             }
         ],
         "slideShows": [
