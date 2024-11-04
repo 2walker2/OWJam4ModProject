@@ -2,9 +2,9 @@
     "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/manifest_schema.json",
     "filename": "OWJam4ModProject.dll",
     "author": "Greenpixel, JohnCorby, 2walker2",
-    "name": "OWJam4ModProject",
+    "name": "Root Access",
     "uniqueName": "2walker2.OWJam4ModProject",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "owmlVersion": "2.14.0",
     "dependencies": [ "xen.NewHorizons" ]
 }
