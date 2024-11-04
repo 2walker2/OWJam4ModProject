@@ -82,13 +82,13 @@ namespace OWJam4ModProject
 
         IEnumerator FlyToPlanet()
         {
-            var belowOrbit = Vector3.Distance(landingTarget.position, body.GetPosition()) < orbitRadius;
+            var belowOrbit = Vector3.Distance(landingTarget.position, transform.position) < orbitRadius;
 
             // start aligning with body
             StartCoroutine(DoAlign(Vector3.up));
 
             // Start moving towards planet
-            Vector3 towardsPlanet = (landingTarget.position - body.GetPosition()).normalized;
+            Vector3 towardsPlanet = (landingTarget.position - transform.position).normalized;
             Vector3 velocity = towardsPlanet * flightSpeed;
             if (belowOrbit)
                 velocity = -towardsPlanet * LandingSpeed;
@@ -96,10 +96,10 @@ namespace OWJam4ModProject
 
             // wait until in orbit
             if (!belowOrbit)
-                while (Vector3.Distance(landingTarget.position, body.GetPosition()) > orbitRadius)
+                while (Vector3.Distance(landingTarget.position, transform.position) > orbitRadius)
                     yield return null;
             else
-                while (Vector3.Distance(landingTarget.position, body.GetPosition()) < orbitRadius)
+                while (Vector3.Distance(landingTarget.position, transform.position) < orbitRadius)
                     yield return null;
 
 
@@ -134,7 +134,7 @@ namespace OWJam4ModProject
 
                 // stay in the orbit radius
                 {
-                    var diff = Vector3.Distance(landingTarget.position, body.GetPosition()) - orbitRadius;
+                    var diff = Vector3.Distance(landingTarget.position, transform.position) - orbitRadius;
                     direction += Vector3.up * diff / 10;
                 }
 
@@ -168,16 +168,16 @@ namespace OWJam4ModProject
             StartCoroutine(DoAlign(Vector3.down));
 
             // move to landing spot
-            Vector3 towardsLanding = (landingPoint.transform.position - body.GetPosition()).normalized;
+            Vector3 towardsLanding = (landingPoint.transform.position - transform.position).normalized;
             Vector3 velocity = towardsLanding * LandingSpeed;
             body.SetVelocity(velocity);
 
             // get height to land on
-            Physics.Raycast(body.GetPosition() + towardsLanding * 20, towardsLanding, out var hit, CLOUD_RADIUS, OWLayerMask.physicalMask);
+            Physics.Raycast(transform.position + towardsLanding * 20, towardsLanding, out var hit, CLOUD_RADIUS, OWLayerMask.physicalMask);
             var height = Vector3.Distance(landingTarget.position, hit.point);
-            OWJam4ModProject.instance.ModHelper.Console.WriteLine($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, body.GetPosition())}");
+            OWJam4ModProject.instance.ModHelper.Console.WriteLine($"height to land at is {height}. current distance is {Vector3.Distance(landingTarget.position, transform.position)}");
 
-            while (Vector3.Distance(landingTarget.position, body.GetPosition()) > height)
+            while (Vector3.Distance(landingTarget.position, transform.position) > height)
             {
                 yield return null;
             }
@@ -234,15 +234,15 @@ namespace OWJam4ModProject
                 // first time in dreamworld. just grab current location
                 joe = new GameObject("joe").transform;
                 joe.parent = body.GetOrigParent();
-                joe.position = body.GetPosition();
-                joe.rotation = body.GetRotation();
+                joe.position = transform.position;
+                joe.rotation = transform.rotation;
             }
             else
             {
                 OWJam4ModProject.instance.ModHelper.Console.WriteLine($"resetting shuttle to {joe.position} {joe.rotation}");
 
-                body.SetPosition(joe.position);
-                body.SetRotation(joe.rotation);
+                transform.position = joe.position;
+                transform.rotation = joe.rotation;
                 body.SetVelocity(Vector3.zero);
                 body.SetAngularVelocity(Vector3.zero);
 
