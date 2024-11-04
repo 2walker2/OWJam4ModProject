@@ -46,6 +46,8 @@ namespace OWJam4ModProject
             if (system != "SolarSystem") return;
             Log("Loaded into solar system!", MessageType.Success);
 
+            Ernesto.Attach();
+
             // make zone1 sector guy huge
             // can see blue atmo from other zone but idc
             var zone1shape = GameObject.Find("DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1").GetComponent<CylinderShape>();
@@ -53,12 +55,12 @@ namespace OWJam4ModProject
             zone1shape.radius = 9999;
 
             // add sector to things that need it
-            /*var dreamWorldController = FindObjectOfType<DreamWorldController>();
-            foreach (var tessSphereSectorToggle in dreamWorldController._dreamBody.GetComponentsInChildren<TessSphereSectorToggle>())
+            foreach (var tessSphereSectorToggle in GameObject.Find("DreamWorld_Body").GetComponentsInChildren<TessSphereSectorToggle>())
             {
-                tessSphereSectorToggle._sector = dreamWorldController._dreamWorldSector;
+                // somehow locator works here???? even tho this is called in OnCompleteSceneLoad
+                tessSphereSectorToggle._sector = Locator.GetDreamWorldController()._dreamWorldSector;
                 Log($"set sector for {tessSphereSectorToggle}");
-            }*/
+            }
 
             //Geswaldo sector
             GameObject geswaldo = SearchUtilities.Find("DreamGeswaldo");
