@@ -8,12 +8,15 @@ public class MorseCodeBeep : MonoBehaviour
 	public SingleLightSensor LightSensor;
 	public OWAudioSource AudioSource;
 
+	float originalVolume;
+
 	private void Start()
 	{
 		LightSensor.OnDetectLight += OnDetectLight;
 		LightSensor.OnDetectDarkness += OnDetectDarkness;
 
 		// owaudiosource is being bad so dont use it
+		originalVolume = AudioSource.volume;
 		AudioSource._audioSource.volume = 0;
 		AudioSource._audioSource.Play();
 	}
@@ -26,7 +29,7 @@ public class MorseCodeBeep : MonoBehaviour
 
 	private void OnDetectLight()
 	{
-		AudioSource._audioSource.volume = .5f;
+		AudioSource._audioSource.volume = originalVolume;
 	}
 
 	private void OnDetectDarkness()
