@@ -82,6 +82,9 @@ namespace OWJam4ModProject
                 // unity explorer script
                 // Locator.GetDreamWorldController()._dreamBody._transform.Find("Sector_DreamWorld/Atmosphere_Dreamworld/Prefab_IP_VisiblePlanet/AmbientLight_IP").GetComponent<Light>().intensity
             }, 100);
+
+            //Attach admin artifact
+            AdminArtifact.AttachToPlayerLantern();
         }
 
         void OnDestroy()

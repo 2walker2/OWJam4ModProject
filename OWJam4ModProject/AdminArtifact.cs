@@ -42,6 +42,9 @@ public class AdminArtifact : MonoBehaviour
 		OWJam4ModProject.instance.ModHelper.Console.WriteLine($"sensor {sensor} activate", MessageType.Success);
 
 		WarpToSpawnPoint(sensor.name);
+
+		foreach (MorseCodeSensor codeSensor in CodeSensors)
+			codeSensor.ClearCode();
 	}
 
 	void WarpToSpawnPoint(string spawnPointName)

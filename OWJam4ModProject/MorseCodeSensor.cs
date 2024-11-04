@@ -46,10 +46,11 @@ public class MorseCodeSensor : MonoBehaviour
         _lightSensor.OnDetectLight -= OnDetectLight;
         _lightSensor.OnDetectDarkness -= OnDetectDarkness;
     }
-    void ClearCode()
+    public void ClearCode()
     {
         CodeInput.Clear();
     }
+
     private void OnDetectLight()
     {
         // OWJam4ModProject.instance.ModHelper.Console.WriteLine($"{this} detect light");
