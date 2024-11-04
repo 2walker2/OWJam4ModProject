@@ -16,9 +16,12 @@ namespace OWJam4ModProject
         [SerializeField] GameObject enableWhenStarted;
         [Tooltip("The candles around the furnace")]
         [SerializeField] DreamCandle[] furnaceCandles;
+        [Tooltip("The audio source used for the shuttle music")]
+        [SerializeField] AudioSource musicSource;
 
         bool codeCorrect = false;
         bool furnaceLit = false;
+        AudioClip musicClip;
 
         void Start()
         {
@@ -26,6 +29,9 @@ namespace OWJam4ModProject
             codeController.OnClose += CodeIncorrect;
 
             furnaceSensor.OnDetectLight += FurnaceLit;
+
+            musicClip = musicSource.clip;
+            musicSource.clip = null;
         }
 
         void Update()
@@ -58,6 +64,8 @@ namespace OWJam4ModProject
                 enableWhenStarted.SetActive(true);
                 engineStartSource.Play();
                 engineHumSource.Play();
+                musicSource.clip = musicClip;
+                musicSource.Play(); // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
             }
         }
 
