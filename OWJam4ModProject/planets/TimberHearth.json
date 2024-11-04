@@ -67,7 +67,7 @@
                 },
                 "slides": [
                     { "imagePath": "assets/slides/frame_0.jpg" },
-                    { "imagePath": "assets/slides/frame_1.jpg" },
+                    { "imagePath": "assets/slides/frame_1.jpg", "backdropAudio": "assets/slideAudio/blegh.ogg" },
                     { "imagePath": "assets/slides/frame_2.jpg" },
                     { "imagePath": "assets/slides/frame_3.jpg" },
                     { "imagePath": "assets/slides/frame_4.jpg" },
