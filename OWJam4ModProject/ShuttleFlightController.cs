@@ -24,6 +24,8 @@ namespace OWJam4ModProject
         [SerializeField] SingleLightSensor lightSensor;
         [Tooltip("The shuttle's OWRigidbody")]
         [SerializeField] OWRigidbody body;
+        [Tooltip("The audio source for the takeoff controller")]
+        [SerializeField] OWAudioSource takeoffAudio;
 
         [Header("Orbit sensors")]
         public SingleLightSensor ForwardSensor;
@@ -80,6 +82,9 @@ namespace OWJam4ModProject
             // Don't take off if the takeoff puzzle isn't solved
             if (!takeoffController.CanTakeOff())
                 return;
+
+            takeoffAudio.Play();
+
 
             StopAllCoroutines();
             StartCoroutine(FlyToPlanet());
