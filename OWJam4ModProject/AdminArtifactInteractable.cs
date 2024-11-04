@@ -8,6 +8,8 @@ public class AdminArtifactInteractable : MonoBehaviour
 
 	[Tooltip("The gameobject to disable when picked up")]
 	[SerializeField] GameObject objectToDisable;
+	[Tooltip("The pickup audio source")]
+	[SerializeField] OWAudioSource pickupAudio;
 
 	private void Start()
 	{
@@ -23,6 +25,10 @@ public class AdminArtifactInteractable : MonoBehaviour
 	private void OnPressInteract()
 	{
 		objectToDisable.SetActive(false);
+		pickupAudio.Play();
+
 		AdminArtifact.AttachToPlayerLantern();
+
+		InteractReceiver.DisableInteraction();
 	}
 }
