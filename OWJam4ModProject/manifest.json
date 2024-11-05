@@ -4,7 +4,7 @@
     "author": "Greenpixel, JohnCorby, 2walker2",
     "name": "Root Access",
     "uniqueName": "2walker2.OWJam4ModProject",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "owmlVersion": "2.14.0",
     "dependencies": [ "xen.NewHorizons" ]
 }
